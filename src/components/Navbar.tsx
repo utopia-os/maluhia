@@ -2,20 +2,51 @@ import { useState, useEffect } from 'react'
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+  const [lastScrollTime, setLastScrollTime] = useState(Date.now())
+  const [isHovered, setIsHovered] = useState(false)
   const [selectedLanguage, setSelectedLanguage] = useState('EN')
 
+  // Scroll-Handler
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true)
-      } else {
+      const currentScrollY = window.scrollY
+
+      // Navbar ist am Anfang immer sichtbar
+      if (currentScrollY < 50) {
         setIsScrolled(false)
+        setIsVisible(true)
+      } else {
+        setIsScrolled(true)
+
+        // Navbar sichtbar beim nach oben scrollen
+        if (currentScrollY < lastScrollY) {
+          setIsVisible(true)
+        } else {
+          // Beim Runterscrollen sofort ausblenden
+          setIsVisible(false)
+        }
       }
+
+      setLastScrollY(currentScrollY)
+      setLastScrollTime(Date.now())
     }
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [lastScrollY])
+
+  // Inaktivitäts-Timer
+  useEffect(() => {
+    if (!isScrolled || !isVisible || isHovered) return
+
+    const hideTimeout = setTimeout(() => {
+      setIsVisible(false)
+    }, 3000)
+
+    return () => clearTimeout(hideTimeout)
+  }, [lastScrollTime, isScrolled, isVisible, isHovered])
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -26,14 +57,20 @@ export default function Navbar() {
 
   return (
     <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       style={{
-        width: isScrolled ? 'min(91.666667%, 80rem)' : '100%',
+        width: isScrolled ? 'min(91.666667%, 65rem)' : '100%',
         borderRadius: isScrolled ? '9999px' : '0px',
       }}
       className={`navbar fixed z-50 left-1/2 -translate-x-1/2 transition-all duration-500 ease-in-out ${
         isScrolled
-          ? 'top-4 bg-white/70 backdrop-blur-md shadow-2xl'
-          : 'top-0  backdrop-blur-sm'
+          ? 'bg-white/70 backdrop-blur-md shadow-2xl'
+          : 'backdrop-blur-sm'
+      } ${
+        isVisible
+          ? isScrolled ? 'top-4' : 'top-0'
+          : '-top-24'
       }`}
     >
       {/* Logo - Start */}
@@ -62,10 +99,10 @@ export default function Navbar() {
           </li>
           <li>
             <button
-              onClick={() => scrollToSection('dialog')}
+              onClick={() => scrollToSection('join')}
               className={`btn btn-ghost transition-all duration-500 ease-in-out `}
             >
-              Dialog
+              Join
             </button>
           </li>
           <li>
@@ -73,7 +110,7 @@ export default function Navbar() {
               onClick={() => scrollToSection('map')}
               className={`btn btn-ghost transition-all duration-500 ease-in-out `}
             >
-              {isScrolled ? 'Map' : 'World of Maluhia'}
+              Map
             </button>
           </li>
           <li>

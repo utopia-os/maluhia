@@ -37,7 +37,7 @@ export default function CountdownSection() {
   }, [])
 
   return (
-    <section className="py-16 bg-transparent">
+    <section className="py-16 pb-32 bg-transparent">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-4 text-white">
           Crowdfunding Starts In
