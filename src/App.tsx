@@ -8,7 +8,7 @@ import CountdownSection from './components/CountdownSection'
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-300 via-cyan-300 to-blue-900">
+    <div className="min-h-screen bg-linear-to-b from-orange-300 via-cyan-300 to-blue-900">
       <Navbar />
       <div id="home" className='py-8'>
         <HeroSection />
@@ -19,10 +19,10 @@ function App() {
       <div id="join" className='py-8'>
         <DialogSection />
       </div>
-      <div id="map" className='py-8 px-24'>
+      <div id="map" className='py-8 px-0 sm:px-24'>
         <MapSection />
       </div>
-      <div id="crowdfunding" className='py-8'>
+      <div id="crowdfunding" className='py-8 px-24 sm:px-8'>
         <CountdownSection />
       </div>
     </div>
