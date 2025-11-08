@@ -51,7 +51,7 @@ export default function DialogSection() {
                   <div className="w-32">
                     <img
                       alt="Turtle guide"
-                      src="/turtle.png"
+                      src={`${import.meta.env.BASE_URL}turtle.png`}
                     />
                   </div>
                 </div>
@@ -67,7 +67,7 @@ export default function DialogSection() {
                     <div className="w-32">
                       <img
                         alt="Turtle guide"
-                        src="/turtle.png"
+                        src={`${import.meta.env.BASE_URL}turtle.png`}
                       />
                     </div>
                   </div>

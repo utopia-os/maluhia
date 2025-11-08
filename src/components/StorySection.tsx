@@ -2,55 +2,55 @@ import { useState } from 'react'
 
 const slides = [
   {
-    image: '/story/1.jpg',
+    image: `${import.meta.env.BASE_URL}story/1.jpg`,
     text: 'In the heart of the ocean, where waves meet wisdom...'
   },
   {
-    image: '/story/2.jpg',
+    image: `${import.meta.env.BASE_URL}story/2.jpg`,
     text: 'A movement begins with a single wave...'
   },
   {
-    image: '/story/3.jpg',
+    image: `${import.meta.env.BASE_URL}story/3.jpg`,
     text: 'Carrying the ancient knowledge of the seas...'
   },
   {
-    image: '/story/4.jpg',
+    image: `${import.meta.env.BASE_URL}story/4.jpg`,
     text: 'Where turtles guide us through the depths...'
   },
   {
-    image: '/story/5.jpg',
+    image: `${import.meta.env.BASE_URL}story/5.jpg`,
     text: 'Teaching us patience and perseverance...'
   },
   {
-    image: '/story/6.jpg',
+    image: `${import.meta.env.BASE_URL}story/6.jpg`,
     text: 'Together we create ripples of change...'
   },
   {
-    image: '/story/7.jpg',
+    image: `${import.meta.env.BASE_URL}story/7.jpg`,
     text: 'Building communities across the world...'
   },
   {
-    image: '/story/8.jpg',
+    image: `${import.meta.env.BASE_URL}story/8.jpg`,
     text: 'Connected by purpose and vision...'
   },
   {
-    image: '/story/9.jpg',
+    image: `${import.meta.env.BASE_URL}story/9.jpg`,
     text: 'Join us on this journey...'
   },
   {
-    image: '/story/10.jpg',
+    image: `${import.meta.env.BASE_URL}story/10.jpg`,
     text: 'Discovering new horizons together...'
   },
   {
-    image: '/story/11.jpg',
+    image: `${import.meta.env.BASE_URL}story/11.jpg`,
     text: 'Building sustainable futures...'
   },
   {
-    image: '/story/12.jpg',
+    image: `${import.meta.env.BASE_URL}story/12.jpg`,
     text: 'United by a shared vision...'
   },
   {
-    image: '/story/13.jpg',
+    image: `${import.meta.env.BASE_URL}story/13.jpg`,
     text: 'Maluhia - Movement for a better tomorrow'
   }
 ]
