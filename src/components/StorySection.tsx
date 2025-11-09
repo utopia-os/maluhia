@@ -67,22 +67,37 @@ export default function StorySection() {
 
   const goToNext = (e: React.MouseEvent) => {
     e.preventDefault()
-    const nextSlide = currentSlide === slides.length - 1 ? 0 : currentSlide + 1
-    setCurrentSlide(nextSlide)
-    document.getElementById(`slide${nextSlide + 1}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+    if (currentSlide === slides.length - 1) {
+      // Bei der letzten Slide zur ersten Slide zurücksetzen und zur nächsten Sektion scrollen
+      setCurrentSlide(0)
+      // Warte kurz, dann scroll zum ersten Slide und dann zur nächsten Sektion
+      setTimeout(() => {
+        document.getElementById('slide1')?.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'start' })
+        const joinSection = document.getElementById('join')
+        if (joinSection) {
+          joinSection.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 500)
+    } else {
+      const nextSlide = currentSlide + 1
+      setCurrentSlide(nextSlide)
+      document.getElementById(`slide${nextSlide + 1}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+    }
   }
 
   return (
     <section className="w-full h-screen bg-transparent relative">
       <div className="w-full h-full">
         <div className="flex items-center h-full relative">
-          {/* Previous button - hidden on mobile */}
-          <button
-            onClick={goToPrevious}
-            className="btn shrink-0 hidden sm:flex absolute left-4 bottom-4 z-20 min-w-20"
-          >
-            Zurück
-          </button>
+          {/* Previous button - hidden on mobile and on first slide */}
+          {currentSlide > 0 && (
+            <button
+              onClick={goToPrevious}
+              className="btn shrink-0 hidden sm:flex absolute left-4 bottom-4 z-20 min-w-20"
+            >
+              Zurück
+            </button>
+          )}
 
           {/* Carousel */}
           <div className="carousel w-full h-screen">
@@ -113,22 +128,26 @@ export default function StorySection() {
             onClick={goToNext}
             className="btn btn-primary shrink-0 hidden sm:flex absolute right-4 bottom-4 z-20 min-w-20"
           >
-            Vor
+           Weiter
           </button>
 
           {/* Mobile navigation buttons - absolute positioned over carousel */}
           <div className="absolute bottom-4 left-0 right-0 flex items-center justify-between px-4 sm:hidden z-10">
-            <button
-              onClick={goToPrevious}
-              className="btn min-w-20"
-            >
-              Zurück
-            </button>
+            {currentSlide > 0 ? (
+              <button
+                onClick={goToPrevious}
+                className="btn min-w-20"
+              >
+                Zurück
+              </button>
+            ) : (
+              <div className="min-w-20" />
+            )}
             <button
               onClick={goToNext}
-              className="btn btn-primary  min-w-20"
+              className="btn btn-primary min-w-20"
             >
-              Vor
+              Weiter
             </button>
           </div>
         </div>

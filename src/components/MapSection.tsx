@@ -8,7 +8,7 @@ export default function MapSection() {
       <div className="container mx-auto h-full">
         <div className="w-full h-full rounded-lg overflow-hidden shadow-xl relative">
           <iframe
-            src="http://localhost:8080?embedded=true"
+            src="https://dev.utopia-map.org?embedded=true"
             className="w-full h-full border-0"
             title="Utopia Map"
             allow="fullscreen"
