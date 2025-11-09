@@ -8,8 +8,8 @@ import CountdownSection from './components/CountdownSection'
 
 function App() {
   return (
-    <div className="snap-y snap-mandatory overflow-y-scroll h-screen">
-      <div className="min-h-screen bg-linear-to-b from-orange-300 via-cyan-300 to-blue-900">
+    <div className="snap-y snap-mandatory overflow-y-scroll h-dvh">
+      <div className="min-h-dvh bg-linear-to-b from-orange-300 via-cyan-300 to-blue-900">
         <Navbar />
         <div id="home" className='py-8 snap-start'>
           <HeroSection />

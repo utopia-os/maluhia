@@ -4,7 +4,7 @@ export default function MapSection() {
   const [isMapActive, setIsMapActive] = useState(false)
 
   return (
-    <section className="bg-transparent h-screen p-8 sm:py-12">
+    <section className="bg-transparent h-dvh p-8 sm:py-12">
       <div className="container mx-auto h-full">
         <div className="w-full h-full rounded-lg overflow-hidden shadow-xl relative">
           <iframe

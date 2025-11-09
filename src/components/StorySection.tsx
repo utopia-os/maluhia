@@ -86,7 +86,7 @@ export default function StorySection() {
   }
 
   return (
-    <section className="w-full h-screen bg-transparent relative">
+    <section className="w-full h-dvh bg-transparent relative">
       <div className="w-full h-full">
         <div className="flex items-center h-full relative">
           {/* Previous button - hidden on mobile and on first slide */}
@@ -100,7 +100,7 @@ export default function StorySection() {
           )}
 
           {/* Carousel */}
-          <div className="carousel w-full h-screen">
+          <div className="carousel w-full h-dvh">
             {slides.map((slide, index) => (
               <div
                 key={index}
@@ -110,7 +110,7 @@ export default function StorySection() {
                 <div className="w-full relative">
                   <img
                     src={slide.image}
-                    className="w-full h-screen object-cover"
+                    className="w-full h-dvh object-cover"
                     alt={`Slide ${index + 1}`}
                   />
                   <div className={`absolute inset-0 flex items-center ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
