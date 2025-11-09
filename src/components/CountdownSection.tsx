@@ -1,43 +1,51 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useGlobalKeyboardNavigation } from '../hooks/useGlobalKeyboardNavigation'
 
 export default function CountdownSection() {
   // Global keyboard navigation
   useGlobalKeyboardNavigation({})
-  const [countdown, setCountdown] = useState({
-    days: 15,
-    hours: 10,
-    minutes: 24,
-    seconds: 59
-  })
+
+  // Target date: December 15th, 2025 at 9:00 AM
+  const targetDate = useMemo(() => new Date('2025-12-15T09:00:00'), [])
+
+  const calculateTimeLeft = () => {
+    const now = new Date()
+    const difference = targetDate.getTime() - now.getTime()
+
+    if (difference <= 0) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+    }
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+    return { days, hours, minutes, seconds }
+  }
+
+  const [countdown, setCountdown] = useState(calculateTimeLeft)
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCountdown(prev => {
-        let { days, hours, minutes, seconds } = prev
+      const now = new Date()
+      const difference = targetDate.getTime() - now.getTime()
 
-        if (seconds > 0) {
-          seconds--
-        } else if (minutes > 0) {
-          minutes--
-          seconds = 59
-        } else if (hours > 0) {
-          hours--
-          minutes = 59
-          seconds = 59
-        } else if (days > 0) {
-          days--
-          hours = 23
-          minutes = 59
-          seconds = 59
-        }
+      if (difference <= 0) {
+        setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+        return
+      }
 
-        return { days, hours, minutes, seconds }
-      })
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+      setCountdown({ days, hours, minutes, seconds })
     }, 1000)
 
     return () => clearInterval(timer)
-  }, [])
+  }, [targetDate])
 
   return (
     <section className="py-8 px-24 h-dvh bg-transparent flex items-center justify-center">
