@@ -19,16 +19,12 @@ interface NavigationCallbacks {
 
 // Global state to track last visited positions
 let lastStorySlide = 0
-let lastDialogStep = 0
 
 export function useGlobalKeyboardNavigation(callbacks: NavigationCallbacks) {
   useEffect(() => {
     // Update global state when callbacks change
     if (callbacks.story) {
       lastStorySlide = callbacks.story.currentSlide
-    }
-    if (callbacks.dialog) {
-      lastDialogStep = callbacks.dialog.currentStep
     }
   }, [callbacks])
 
@@ -125,7 +121,7 @@ export function useGlobalKeyboardNavigation(callbacks: NavigationCallbacks) {
           }
           break
 
-        case 'story':
+        case 'story': {
           if (!callbacks.story) break
           const { currentSlide, totalSlides, goToPrevious, goToNext } = callbacks.story
 
@@ -156,8 +152,9 @@ export function useGlobalKeyboardNavigation(callbacks: NavigationCallbacks) {
             scrollToSection('join')
           }
           break
+        }
 
-        case 'join':
+        case 'join': {
           if (!callbacks.dialog) break
           const { currentStep, totalSteps, goToPrevious: dialogPrev, goToNext: dialogNext } = callbacks.dialog
 
@@ -188,6 +185,7 @@ export function useGlobalKeyboardNavigation(callbacks: NavigationCallbacks) {
             scrollToSection('map')
           }
           break
+        }
 
         case 'map':
           if (e.key === 'ArrowLeft') {
