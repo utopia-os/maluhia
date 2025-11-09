@@ -39,12 +39,12 @@ export default function CountdownSection() {
   return (
     <section className="py-16 pb-32 bg-transparent">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-4 text-white">
-          Crowdfunding Starts In
+        <h2 className="text-2xl sm:text-4xl font-bold text-center mb-4 text-white">
+          Crowdfunding starts in
         </h2>
         <div className="flex justify-center gap-8 mt-8">
           <div className="text-center">
-            <span className="countdown font-mono text-6xl text-white">
+            <span className="countdown font-mono text-4xl sm:text-6xl text-white">
               <span style={{ '--value': countdown.days } as React.CSSProperties} aria-live="polite">
                 {countdown.days}
               </span>
@@ -52,7 +52,7 @@ export default function CountdownSection() {
             <div className="text-white text-xl mt-2">days</div>
           </div>
           <div className="text-center">
-            <span className="countdown font-mono text-6xl text-white">
+            <span className="countdown font-mono text-4xl sm:text-6xl text-white">
               <span style={{ '--value': countdown.hours } as React.CSSProperties} aria-live="polite">
                 {countdown.hours}
               </span>
@@ -60,7 +60,7 @@ export default function CountdownSection() {
             <div className="text-white text-xl mt-2">hours</div>
           </div>
           <div className="text-center">
-            <span className="countdown font-mono text-6xl text-white">
+            <span className="countdown font-mono text-4xl sm:text-6xl text-white">
               <span style={{ '--value': countdown.minutes } as React.CSSProperties} aria-live="polite">
                 {countdown.minutes}
               </span>
@@ -68,7 +68,7 @@ export default function CountdownSection() {
             <div className="text-white text-xl mt-2">min</div>
           </div>
           <div className="text-center">
-            <span className="countdown font-mono text-6xl text-white">
+            <span className="countdown font-mono text-4xl sm:text-6xl text-white">
               <span style={{ '--value': countdown.seconds } as React.CSSProperties} aria-live="polite">
                 {countdown.seconds}
               </span>

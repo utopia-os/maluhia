@@ -7,11 +7,15 @@ export default function Navbar() {
   const [lastScrollTime, setLastScrollTime] = useState(Date.now())
   const [isHovered, setIsHovered] = useState(false)
   const [selectedLanguage, setSelectedLanguage] = useState('EN')
+  const [activeSection, setActiveSection] = useState('home')
 
   // Scroll-Handler
   useEffect(() => {
+    // Find the scroll container (first element with overflow-y-scroll)
+    const scrollContainer = document.querySelector('.snap-y.snap-mandatory.overflow-y-scroll') as HTMLElement
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
+      const currentScrollY = scrollContainer ? scrollContainer.scrollTop : window.scrollY
 
       // Navbar ist am Anfang immer sichtbar
       if (currentScrollY < 50) {
@@ -19,22 +23,50 @@ export default function Navbar() {
         setIsVisible(true)
       } else {
         setIsScrolled(true)
-
-        // Navbar sichtbar beim nach oben scrollen
-        if (currentScrollY < lastScrollY) {
-          setIsVisible(true)
-        } else {
-          // Beim Runterscrollen sofort ausblenden
-          setIsVisible(false)
-        }
+        // Navbar bleibt beim Scrollen sichtbar (egal ob hoch oder runter)
+        // Der 3-Sekunden-Timer blendet sie bei Inaktivität aus
+        setIsVisible(true)
       }
 
+      // Aktive Sektion herausfinden
+      const sections = ['home', 'story', 'join', 'map', 'crowdfunding']
+      const sectionElements = sections.map(id => ({
+        id,
+        element: document.getElementById(id)
+      })).filter(s => s.element !== null)
+
+      // Finde die Sektion, die am meisten im Viewport ist
+      let currentSection = 'home'
+      let maxVisibility = 0
+
+      sectionElements.forEach(({ id, element }) => {
+        if (!element) return
+
+        const rect = element.getBoundingClientRect()
+        const viewportHeight = window.innerHeight
+
+        // Berechne wie viel von der Sektion sichtbar ist
+        const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0)
+        const visibility = visibleHeight / viewportHeight
+
+        if (visibility > maxVisibility) {
+          maxVisibility = visibility
+          currentSection = id
+        }
+      })
+
+      setActiveSection(currentSection)
       setLastScrollY(currentScrollY)
       setLastScrollTime(Date.now())
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', handleScroll, { passive: true })
+      return () => scrollContainer.removeEventListener('scroll', handleScroll)
+    } else {
+      window.addEventListener('scroll', handleScroll, { passive: true })
+      return () => window.removeEventListener('scroll', handleScroll)
+    }
   }, [lastScrollY])
 
   // Inaktivitäts-Timer
@@ -59,17 +91,9 @@ export default function Navbar() {
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{
-        width: isScrolled ? 'min(91.666667%, 65rem)' : '100%',
-        borderRadius: isScrolled ? '9999px' : '0px',
-      }}
-      className={`navbar fixed z-50 left-1/2 -translate-x-1/2 transition-all duration-500 ease-in-out ${
-        isScrolled
-          ? 'bg-white/70 backdrop-blur-md shadow-2xl'
-          : 'backdrop-blur-sm'
-      } ${
+      className={`navbar sticky z-50 transition-all duration-500 ease-in-out backdrop-blur-xl ${
         isVisible
-          ? isScrolled ? 'top-4' : 'top-0'
+          ? 'top-0'
           : '-top-24'
       }`}
     >
@@ -98,16 +122,34 @@ export default function Navbar() {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow-lg"
           >
             <li>
-              <button onClick={() => scrollToSection('story')}>Story</button>
+              <button
+                onClick={() => scrollToSection('story')}
+                className={activeSection === 'story' ? 'active' : ''}
+              >
+                Story
+              </button>
             </li>
             <li>
-              <button onClick={() => scrollToSection('join')}>Join</button>
+              <button
+                onClick={() => scrollToSection('join')}
+                className={activeSection === 'join' ? 'active' : ''}
+              >
+                Join
+              </button>
             </li>
             <li>
-              <button onClick={() => scrollToSection('map')}>Map</button>
+              <button
+                onClick={() => scrollToSection('map')}
+                className={activeSection === 'map' ? 'active' : ''}
+              >
+                Map
+              </button>
             </li>
             <li>
-              <button onClick={() => scrollToSection('crowdfunding')}>
+              <button
+                onClick={() => scrollToSection('crowdfunding')}
+                className={activeSection === 'crowdfunding' ? 'active' : ''}
+              >
                 Crowdfunding
               </button>
             </li>
@@ -123,7 +165,7 @@ export default function Navbar() {
           <li>
             <button
               onClick={() => scrollToSection('story')}
-              className={`btn btn-ghost transition-all duration-500 ease-in-out `}
+              className={`btn btn-ghost transition-all duration-500 ease-in-out ${activeSection === 'story' ? 'btn-active' : ''}`}
             >
               Story
             </button>
@@ -131,7 +173,7 @@ export default function Navbar() {
           <li>
             <button
               onClick={() => scrollToSection('join')}
-              className={`btn btn-ghost transition-all duration-500 ease-in-out `}
+              className={`btn btn-ghost transition-all duration-500 ease-in-out ${activeSection === 'join' ? 'btn-active' : ''}`}
             >
               Join
             </button>
@@ -139,7 +181,7 @@ export default function Navbar() {
           <li>
             <button
               onClick={() => scrollToSection('map')}
-              className={`btn btn-ghost transition-all duration-500 ease-in-out `}
+              className={`btn btn-ghost transition-all duration-500 ease-in-out ${activeSection === 'map' ? 'btn-active' : ''}`}
             >
               Map
             </button>
@@ -147,7 +189,7 @@ export default function Navbar() {
           <li>
             <button
               onClick={() => scrollToSection('crowdfunding')}
-              className={`btn btn-ghost transition-all duration-500 ease-in-out `}
+              className={`btn btn-ghost transition-all duration-500 ease-in-out ${activeSection === 'crowdfunding' ? 'btn-active' : ''}`}
             >
               Crowdfunding
             </button>
