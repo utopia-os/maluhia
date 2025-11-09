@@ -16,7 +16,7 @@ export default function MapSection() {
   }
 
   return (
-    <section className="bg-transparent sm:p-20 sm:pb-10 h-dvh p-8 flex flex-col">
+    <section className="bg-transparent sm:p-20 sm:pb-10 h-dvh p-8 pt-20 flex flex-col">
       <div className="container mx-auto flex-1">
         <div className="w-full h-full rounded-lg overflow-hidden shadow-xl relative">
           <iframe

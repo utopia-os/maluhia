@@ -31,7 +31,7 @@ const slides = [
     image: `${import.meta.env.BASE_URL}story/5.png`,
     text: 'Da beschloss die Honu, zu allen Ufern der Erde zu schwimmen und den Menschen das Licht zurückzubringen. Sie schwamm Tag für Tag, Nacht für Nacht, Jahr für Jahr. Sie überquerte Ozeane, sah die Strände vieler Länder, und überall, wo sie vorbeikam, hinterließ sie eine Spur aus Licht.',
     horizontal: 'left',
-    vertical: 'bottom'
+    vertical: 'top'
   },
   {
     image: `${import.meta.env.BASE_URL}story/6.jpg`,
@@ -186,7 +186,7 @@ export default function StorySection() {
                   `}>
                     <p
                       className={`text-white text-2xl font-semibold px-8 max-w-xl
-                        ${slide.vertical === 'bottom' ? 'pb-28 sm:pb-28' : slide.vertical === 'top' ? 'pt-16 sm:pt-16' : ''}
+                        ${slide.vertical === 'bottom' ? 'pb-28 sm:pb-28' : slide.vertical === 'top' ? 'pt-20 sm:pt-20' : ''}
                         ${slide.horizontal === 'left' ? 'text-left' : slide.horizontal === 'right' ? 'text-left' : 'text-center'}
                       `}
                       style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)' }}
