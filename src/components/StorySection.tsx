@@ -7,13 +7,13 @@ const slides = [
     image: `${import.meta.env.BASE_URL}story/1.png`,
     text: 'In den Tiefen des weiten Ozeans lebte vor langer, langer Zeit die Honu, die alte Meeresschildkröte. Langsam und leise glitt sie durch das Wasser, so still, dass selbst die Wellen innehielten, um ihr zuzusehen.',
     horizontal: 'left', // 'left' | 'center' | 'right'
-    vertical: 'bottom' // 'top' | 'center' | 'bottom'
+    vertical: 'top' // 'top' | 'center' | 'bottom'
   },
   {
     image: `${import.meta.env.BASE_URL}story/23.png`,
     text: 'Die Honu trug auf ihrem Panzer das Symbol von Maluhiia (Fieden) das in uns wächst und sich ausbreitet – von Herz zu Herz, wie eine Welle. Man sagt in diesem kraftvollen Zeichen, sei die Erinnerung der Welt verborgen – die Lieder der Ahnen, die Wege der Sterne, das Flüstern der Erde.',
     horizontal: 'right',
-    vertical: 'top'
+    vertical: 'bottom'
   },
   {
     image: `${import.meta.env.BASE_URL}story/3.png`,
@@ -25,7 +25,7 @@ const slides = [
     image: `${import.meta.env.BASE_URL}story/4.png`,
     text: 'Doch eines Nachts kam der große Schatten und legte sich in die Herzen der Menschen. Erschrocken sah Honu, dass die Menschen immer unglücklicher wurden, sodass sie ihren Planeten zu hassen begannen und einander mit immer grausameren Kriegen quälten.',
     horizontal: 'right',
-    vertical: 'bottom'
+    vertical: 'top'
   },
   {
     image: `${import.meta.env.BASE_URL}story/5.png`,
@@ -74,12 +74,6 @@ const slides = [
     text: 'Und noch heute, wenn du am Meer stehst und die Wellen beobachtest, kannst du sie vielleicht sehen – die Honu, wie sie ruhig und still vorbeigleitet. Und wenn du genau hinhörst, dann hörst du vielleicht ihr Lied: Das Lied vom Frieden. Das Lied von Maluhia.',
     horizontal: 'right',
     vertical: 'top'
-  },
-  {
-    image: `${import.meta.env.BASE_URL}story/13.jpg`,
-    text: 'Maluhia - Das Lied vom Frieden',
-    horizontal: 'center',
-    vertical: 'center'
   }
 ]
 
@@ -192,7 +186,7 @@ export default function StorySection() {
                   `}>
                     <p
                       className={`text-white text-2xl font-semibold px-8 max-w-xl
-                        ${slide.vertical === 'bottom' ? 'pb-28 sm:pb-28' : slide.vertical === 'top' ? 'pt-28 sm:pt-28' : ''}
+                        ${slide.vertical === 'bottom' ? 'pb-28 sm:pb-28' : slide.vertical === 'top' ? 'pt-16 sm:pt-16' : ''}
                         ${slide.horizontal === 'left' ? 'text-left' : slide.horizontal === 'right' ? 'text-left' : 'text-center'}
                       `}
                       style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)' }}

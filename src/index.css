@@ -7,19 +7,19 @@ body {
 }
 
 .hero {
-  background-image: url('public/bg2.jpg');
+  background-image: url('/bg2.jpg');
   background-size: 100% auto;
   background-position: center;
 }
 
 .dialog-section {
-  background-image: url('public/bg1.jpg');
+  background-image: url('/bg1.jpg');
   background-size: 100% auto;
   background-position: center;
 }
 
 .map {
-  background-image: url('public/bg3.jpg');
+  background-image: url('/bg3.jpg');
   background-size: 100% auto;
   background-position: center;
 }
