@@ -42,7 +42,7 @@ export default function DialogSection() {
   return (
     <section className="py-16 bg-transparent">
       <div className="container mx-auto px-4 max-w-4xl">
-        <div className="card bg-transparent">
+        <div className="card p-0! bg-transparent">
           <div className="card-body">
             {/* Show completion message when all questions are answered */}
             {isLastQuestion && allAnswered && currentAnswer.trim() ? (

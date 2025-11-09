@@ -16,10 +16,10 @@ function App() {
       <div id="story" className='py-8 px-10 '>
         <StorySection />
       </div>
-      <div id="join" className='py-8'>
+      <div id="join" className='py-8 sm:p-16'>
         <DialogSection />
       </div>
-      <div id="map" className='py-8 px-0 sm:px-24'>
+      <div id="map" className='py-8 px-6 sm:px-24'>
         <MapSection />
       </div>
       <div id="crowdfunding" className='py-8 px-24 sm:px-8'>

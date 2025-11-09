@@ -74,18 +74,18 @@ export default function StorySection() {
 
   return (
     <section className="py-16 bg-transparent">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center gap-4">
-          {/* Previous button */}
+      <div className="container mx-auto sm:px-4">
+        <div className="flex items-center sm:gap-4 relative">
+          {/* Previous button - hidden on mobile */}
           <button
             onClick={goToPrevious}
-            className="btn btn-circle flex-shrink-0"
+            className="btn btn-circle shrink-0 hidden sm:flex"
           >
             ❮
           </button>
 
           {/* Carousel */}
-          <div className="carousel w-full h-128 rounded-box flex-grow">
+          <div className="carousel w-full h-128 sm:rounded-box grow">
             {slides.map((slide, index) => (
               <div
                 key={index}
@@ -108,13 +108,29 @@ export default function StorySection() {
             ))}
           </div>
 
-          {/* Next button */}
+          {/* Next button - hidden on mobile */}
           <button
             onClick={goToNext}
-            className="btn btn-circle flex-shrink-0"
+            className="btn btn-circle shrink-0 hidden sm:flex"
           >
             ❯
           </button>
+
+          {/* Mobile navigation buttons - absolute positioned over carousel */}
+          <div className="absolute inset-0 flex items-center justify-between px-4 pointer-events-none sm:hidden z-10">
+            <button
+              onClick={goToPrevious}
+              className="btn btn-circle pointer-events-auto"
+            >
+              ❮
+            </button>
+            <button
+              onClick={goToNext}
+              className="btn btn-circle pointer-events-auto"
+            >
+              ❯
+            </button>
+          </div>
         </div>
       </div>
     </section>
