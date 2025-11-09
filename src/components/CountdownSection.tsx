@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
+import { useGlobalKeyboardNavigation } from '../hooks/useGlobalKeyboardNavigation'
 
 export default function CountdownSection() {
+  // Global keyboard navigation
+  useGlobalKeyboardNavigation({})
   const [countdown, setCountdown] = useState({
     days: 15,
     hours: 10,
@@ -37,7 +40,7 @@ export default function CountdownSection() {
   }, [])
 
   return (
-    <section className="py-16 pb-32 bg-transparent">
+    <section className="py-8 px-24 h-dvh bg-transparent flex items-center justify-center">
       <div className="container mx-auto px-4">
         <h2 className="text-2xl sm:text-4xl font-bold text-center mb-4 text-white">
           Crowdfunding starts in
@@ -77,9 +80,6 @@ export default function CountdownSection() {
           </div>
         </div>
         <div className="text-center mt-8">
-          <button className="btn btn-lg btn-neutral">
-            Get Notified
-          </button>
         </div>
       </div>
     </section>

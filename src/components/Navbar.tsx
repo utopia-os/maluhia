@@ -85,17 +85,33 @@ export default function Navbar() {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
     }
+
+    // Reset to first step/slide when clicking navbar
+    setTimeout(() => {
+      if (sectionId === 'story') {
+        // Go to first story slide
+        const firstSlide = document.getElementById('slide1')
+        if (firstSlide) {
+          firstSlide.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+        }
+      } else if (sectionId === 'join') {
+        // Trigger will reset to first question via event
+        window.dispatchEvent(new CustomEvent('resetDialog'))
+      }
+    }, 100)
   }
+
+  const isWhiteText = activeSection === 'map' || activeSection === 'crowdfunding'
 
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`navbar sticky z-50 transition-all duration-500 ease-in-out backdrop-blur-xl ${
+      className={`navbar sticky z-50 transition-all duration-1000 ease-in-out backdrop-blur-xs ${
         isVisible
           ? 'top-0'
           : '-top-24'
-      }`}
+      } ${isWhiteText ? 'text-white' : ''}`}
     >
       {/* Logo - Start */}
       <div className="navbar-start">
@@ -121,6 +137,14 @@ export default function Navbar() {
             tabIndex={-1}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow-lg"
           >
+                        <li>
+              <button
+                onClick={() => scrollToSection('home')}
+                className={activeSection === 'home' ? 'active' : ''}
+              >
+                Start
+              </button>
+            </li>
             <li>
               <button
                 onClick={() => scrollToSection('story')}
@@ -161,11 +185,17 @@ export default function Navbar() {
       <div className="navbar-center hidden lg:flex">
         <ul className={`menu menu-horizontal px-1 transition-all duration-500 ease-in-out ${isScrolled ? 'gap-1' : 'gap-2'}`}>
           <li>
+          <button
+              onClick={() => scrollToSection('home')}
+              className={`btn btn-ghost transition-all duration-500 ease-in-out ${activeSection === 'home' ? 'text-[#E37039]' : ''}`}
+            >
+              Start
+            </button>
           </li>
           <li>
             <button
               onClick={() => scrollToSection('story')}
-              className={`btn btn-ghost transition-all duration-500 ease-in-out ${activeSection === 'story' ? 'btn-active' : ''}`}
+              className={`btn btn-ghost transition-all duration-500 ease-in-out ${activeSection === 'story' ? 'text-[#E37039]' : ''}`}
             >
               Story
             </button>
@@ -173,7 +203,7 @@ export default function Navbar() {
           <li>
             <button
               onClick={() => scrollToSection('join')}
-              className={`btn btn-ghost transition-all duration-500 ease-in-out ${activeSection === 'join' ? 'btn-active' : ''}`}
+              className={`btn btn-ghost transition-all duration-500 ease-in-out ${activeSection === 'join' ? 'text-[#E37039]' : ''}`}
             >
               Join
             </button>
@@ -181,7 +211,7 @@ export default function Navbar() {
           <li>
             <button
               onClick={() => scrollToSection('map')}
-              className={`btn btn-ghost transition-all duration-500 ease-in-out ${activeSection === 'map' ? 'btn-active' : ''}`}
+              className={`btn btn-ghost transition-all duration-500 ease-in-out ${activeSection === 'map' ? 'text-[#E37039]' : ''}`}
             >
               Map
             </button>
@@ -189,7 +219,7 @@ export default function Navbar() {
           <li>
             <button
               onClick={() => scrollToSection('crowdfunding')}
-              className={`btn btn-ghost transition-all duration-500 ease-in-out ${activeSection === 'crowdfunding' ? 'btn-active' : ''}`}
+              className={`btn btn-ghost transition-all duration-500 ease-in-out ${activeSection === 'crowdfunding' ? 'text-[#E37039]' : ''}`}
             >
               Crowdfunding
             </button>

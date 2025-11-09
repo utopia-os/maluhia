@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import ShadowButton from './ShadowButton'
+import { useGlobalKeyboardNavigation } from '../hooks/useGlobalKeyboardNavigation'
 
 const turtleQuestions = [
   "What brings you to our movement today?",
@@ -13,14 +15,18 @@ export default function DialogSection() {
   const [currentAnswer, setCurrentAnswer] = useState('')
 
   const handleNext = () => {
-    if (currentAnswer.trim()) {
-      const newAnswers = [...userAnswers]
-      newAnswers[dialogStep] = currentAnswer
-      setUserAnswers(newAnswers)
+    const newAnswers = [...userAnswers]
+    newAnswers[dialogStep] = currentAnswer
+    setUserAnswers(newAnswers)
 
-      if (dialogStep < turtleQuestions.length - 1) {
-        setDialogStep(dialogStep + 1)
-        setCurrentAnswer(newAnswers[dialogStep + 1] || '')
+    if (dialogStep < turtleQuestions.length - 1) {
+      setDialogStep(dialogStep + 1)
+      setCurrentAnswer(newAnswers[dialogStep + 1] || '')
+    } else {
+      // Bei der letzten Frage zur nächsten Sektion scrollen
+      const mapSection = document.getElementById('map')
+      if (mapSection) {
+        mapSection.scrollIntoView({ behavior: 'smooth' })
       }
     }
   }
@@ -33,14 +39,56 @@ export default function DialogSection() {
 
       setDialogStep(dialogStep - 1)
       setCurrentAnswer(userAnswers[dialogStep - 1] || '')
+    } else {
+      // Bei Step 1 zur vorherigen Sektion scrollen
+      const storySection = document.getElementById('story')
+      if (storySection) {
+        storySection.scrollIntoView({ behavior: 'smooth' })
+      }
     }
   }
+
+  const handleNextWrapper = () => {
+    handleNext()
+  }
+
+  const goToStep = useCallback((stepIndex: number) => {
+    // Save current answer before switching
+    const newAnswers = [...userAnswers]
+    newAnswers[dialogStep] = currentAnswer
+    setUserAnswers(newAnswers)
+
+    // Switch to new step
+    setDialogStep(stepIndex)
+    setCurrentAnswer(newAnswers[stepIndex] || '')
+  }, [dialogStep, currentAnswer, userAnswers])
 
   const isLastQuestion = dialogStep === turtleQuestions.length - 1
   const allAnswered = userAnswers.every(answer => answer.trim() !== '')
 
+  // Global keyboard navigation
+  useGlobalKeyboardNavigation({
+    dialog: {
+      currentStep: dialogStep,
+      totalSteps: turtleQuestions.length,
+      goToPrevious: handleBack,
+      goToNext: handleNextWrapper,
+      goToStep
+    }
+  })
+
+  // Listen for navbar clicks to reset to first question
+  useEffect(() => {
+    const handleResetDialog = () => {
+      goToStep(0)
+    }
+
+    window.addEventListener('resetDialog', handleResetDialog as EventListener)
+    return () => window.removeEventListener('resetDialog', handleResetDialog as EventListener)
+  }, [goToStep])
+
   return (
-    <section className="h-dvh bg-transparent flex items-center">
+    <section className="dialog-section py-8 sm:p-16 h-dvh bg-transparent flex items-center">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="card p-0! bg-transparent">
           <div className="card-body">
@@ -55,7 +103,7 @@ export default function DialogSection() {
                     />
                   </div>
                 </div>
-                <div className="chat-bubble chat-bubble-success text-lg">
+                <div className="chat-bubble bg-[#F6CF6B] text-[#564722] text-lg">
                   Thank you for sharing! Your journey with Maluhia begins now.
                 </div>
               </div>
@@ -71,7 +119,7 @@ export default function DialogSection() {
                       />
                     </div>
                   </div>
-                  <div className="chat-bubble chat-bubble-primary text-lg">
+                  <div className="chat-bubble bg-[#F6CF6B] text-[#564722] text-lg">
                     {turtleQuestions[dialogStep]}
                   </div>
                 </div>
@@ -88,16 +136,9 @@ export default function DialogSection() {
 
                 {/* Navigation buttons */}
                 <div className="flex justify-between items-center mt-6">
-                  <button
-                    className="btn btn-outline"
-                    onClick={handleBack}
-                    disabled={dialogStep === 0}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
+                  <ShadowButton onClick={handleBack}>
                     Zurück
-                  </button>
+                  </ShadowButton>
 
                   <div className="flex gap-2">
                     {turtleQuestions.map((_, index) => (
@@ -114,16 +155,9 @@ export default function DialogSection() {
                     ))}
                   </div>
 
-                  <button
-                    className="btn btn-primary"
-                    onClick={handleNext}
-                    disabled={!currentAnswer.trim()}
-                  >
-                    {isLastQuestion ? 'Fertig' : 'Weiter'}
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
+                  <ShadowButton onClick={handleNext}>
+                    {isLastQuestion ? 'Fertig' : (currentAnswer.trim() ? 'Weiter' : 'Skip')}
+                  </ShadowButton>
                 </div>
               </>
             )}

@@ -9,22 +9,24 @@ import CountdownSection from './components/CountdownSection'
 function App() {
   return (
     <div className="snap-y snap-mandatory overflow-y-scroll h-dvh">
-      <div className="min-h-dvh bg-linear-to-b from-orange-300 via-cyan-300 to-blue-900">
+      <div className="min-h-dvh">
         <Navbar />
-        <div id="home" className='py-8 snap-start'>
+        <div id="home" className='snap-start'>
           <HeroSection />
         </div>
         <div id="story" className='snap-start'>
           <StorySection />
         </div>
-        <div id="join" className='py-8 sm:p-16 snap-start'>
+        <div id="join" className='snap-start'>
           <DialogSection />
         </div>
-        <div id="map" className='sm:px-24 snap-start'>
+        <div className="map">
+        <div id="map" className='snap-start'>
           <MapSection />
         </div>
-        <div id="crowdfunding" className='py-8 px-24 sm:px-8 snap-start'>
+        <div id="crowdfunding" className='snap-start'>
           <CountdownSection />
+        </div>
         </div>
       </div>
     </div>

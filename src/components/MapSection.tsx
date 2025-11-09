@@ -1,11 +1,23 @@
 import { useState } from 'react'
+import { useGlobalKeyboardNavigation } from '../hooks/useGlobalKeyboardNavigation'
+import ShadowButton from './ShadowButton'
 
 export default function MapSection() {
   const [isMapActive, setIsMapActive] = useState(false)
 
+  // Global keyboard navigation
+  useGlobalKeyboardNavigation({})
+
+  const scrollToCrowdfunding = () => {
+    const element = document.getElementById('crowdfunding')
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
-    <section className="bg-transparent h-dvh p-8 sm:py-12">
-      <div className="container mx-auto h-full">
+    <section className="bg-transparent sm:p-20 sm:pb-10 h-dvh p-8 flex flex-col">
+      <div className="container mx-auto flex-1">
         <div className="w-full h-full rounded-lg overflow-hidden shadow-xl relative">
           <iframe
             src="https://dev.utopia-map.org?embedded=true"
@@ -32,6 +44,11 @@ export default function MapSection() {
             </button>
           )}
         </div>
+      </div>
+      <div className="container mx-auto mt-10 flex justify-center">
+        <ShadowButton onClick={scrollToCrowdfunding}>
+          Zum Crowdfunding
+        </ShadowButton>
       </div>
     </section>
   )
