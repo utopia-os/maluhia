@@ -146,7 +146,7 @@ export default function DialogSection() {
                         key={index}
                         className={`h-3 w-3 rounded-full ${
                           index === dialogStep
-                            ? 'bg-primary'
+                            ? 'bg-[#E37039]'
                             : userAnswers[index]?.trim()
                             ? 'bg-success'
                             : 'bg-base-300'
