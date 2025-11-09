@@ -8,18 +8,21 @@ body {
 
 .hero {
   background-image: url('/bg2.jpg');
-  background-size: 100% auto;
+  background-size: cover;
+  background-repeat: no-repeat;
   background-position: center;
 }
 
 .dialog-section {
   background-image: url('/bg1.jpg');
-  background-size: 100% auto;
+  background-size: cover;
+  background-repeat: no-repeat;
   background-position: center;
 }
 
 .map {
   background-image: url('/bg3.jpg');
-  background-size: 100% auto;
+  background-size: cover;
+  background-repeat: no-repeat;
   background-position: center;
 }

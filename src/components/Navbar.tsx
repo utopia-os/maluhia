@@ -69,8 +69,11 @@ export default function Navbar() {
     }
   }, [lastScrollY])
 
-  // Inaktivitäts-Timer
+  // Inaktivitäts-Timer (nur wenn nicht in Hero-Section)
   useEffect(() => {
+    // Navbar bleibt in der Hero-Section immer sichtbar
+    if (activeSection === 'home') return
+
     if (!isScrolled || !isVisible || isHovered) return
 
     const hideTimeout = setTimeout(() => {
@@ -78,7 +81,7 @@ export default function Navbar() {
     }, 3000)
 
     return () => clearTimeout(hideTimeout)
-  }, [lastScrollTime, isScrolled, isVisible, isHovered])
+  }, [lastScrollTime, isScrolled, isVisible, isHovered, activeSection])
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)

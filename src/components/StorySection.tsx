@@ -25,7 +25,7 @@ const slides = [
     image: `${import.meta.env.BASE_URL}story/4.png`,
     text: 'Doch eines Nachts kam der große Schatten und legte sich in die Herzen der Menschen. Erschrocken sah Honu, dass die Menschen immer unglücklicher wurden, sodass sie ihren Planeten zu hassen begannen und einander mit immer grausameren Kriegen quälten.',
     horizontal: 'right',
-    vertical: 'top'
+    vertical: 'bottom'
   },
   {
     image: `${import.meta.env.BASE_URL}story/5.png`,
