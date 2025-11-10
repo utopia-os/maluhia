@@ -26,9 +26,9 @@ const dialogSteps: DialogStep[] = [
     inputType: 'multi'
   },
   {
-    question: (userName) => `Danke, lieber ${userName}. Jetzt bist du ein Teil der Maluhia Friedenskette. Setze dein Licht auf die Karte und leuchte für den Frieden.`,
+    question: (userName) => `Danke, lieber ${userName}. Jetzt bist du ein Teil der Maluhia Friedenskette. Sag mir wo du gerade bist damit wir dein Licht auf die Karte setzen können.`,
     placeholder: "Deine Friedensbotschaft für die Welt...",
-    inputType: 'multi'
+    inputType: 'single'
   }
 ]
 
