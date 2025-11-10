@@ -15,10 +15,10 @@ export default function HeroSection() {
   return (
     <div className="hero h-dvh min-h-64">
       <div className="hero-content text-center">
-        <div className="max-w-md">
-          <h1 className="text-9xl text-[#297D95] mb-4" style={{ fontFamily: '"Reenie Beanie", cursive' }}>Maluhia</h1>
-          <p className="text-3xl text-[#297D95]/80 mb-8">Movement</p>
-          <ShadowButton onClick={scrollToNextSection}>
+        <div className="max-w-xl">
+          <h1 className="text-9xl sm:text-[192px] text-[#297D95]" style={{ fontFamily: '"Reenie Beanie", cursive' }}>Maluhia</h1>
+          <p className="text-2xl max-w-lg sm:text-[36px] font-bold  text-[#E37039]/80 mb-8 sm:mb-16" style={{ fontFamily: '"Reenie Beanie", cursive' }}>Wir tragen den Frieden aus unseren Herzen in die Welt</p>
+          <ShadowButton onClick={scrollToNextSection} >
             Reise Starten
           </ShadowButton>
         </div>

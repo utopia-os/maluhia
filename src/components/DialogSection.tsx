@@ -2,16 +2,39 @@ import { useState, useEffect, useCallback } from 'react'
 import ShadowButton from './ShadowButton'
 import { useGlobalKeyboardNavigation } from '../hooks/useGlobalKeyboardNavigation'
 
-const turtleQuestions = [
-  "What brings you to our movement today?",
-  "How do you envision making a difference?",
-  "What skills or passions would you like to contribute?",
-  "What does Maluhia mean to you?"
+type InputType = 'single' | 'multi' | 'none'
+
+interface DialogStep {
+  question: string
+  placeholder?: string
+  inputType: InputType
+}
+
+const dialogSteps: DialogStep[] = [
+  {
+    question: "Aloha, Ich bin die Honu. Wie ist dein Name?",
+    placeholder: "Dein Name...",
+    inputType: 'single'
+  },
+  {
+    question: "Lieber Timo, Maluhia bedeutet in der hawaiianischen Kultur \"Frieden\" und \"Harmonie\". Meine Aufgabe ist es, Maluhia wieder in die Herzen der Menschen zu bringen.",
+    inputType: 'none'
+  },
+  {
+    question: "Frieden kommt aus den Herzen der Menschen. Was möchte uns dein Herz mitteilen, lieber Timo?",
+    placeholder: "Was dein Herz mitteilen möchte...",
+    inputType: 'multi'
+  },
+  {
+    question: "Danke, lieber Timo. Jetzt bist du ein Teil der Maluhia Friedenskette. Setze dein Licht auf die Karte und leuchte für den Frieden.",
+    placeholder: "Deine Friedensbotschaft für die Welt...",
+    inputType: 'multi'
+  }
 ]
 
 export default function DialogSection() {
   const [dialogStep, setDialogStep] = useState(0)
-  const [userAnswers, setUserAnswers] = useState<string[]>(Array(turtleQuestions.length).fill(''))
+  const [userAnswers, setUserAnswers] = useState<string[]>(Array(dialogSteps.length).fill(''))
   const [currentAnswer, setCurrentAnswer] = useState('')
 
   const handleNext = () => {
@@ -19,7 +42,7 @@ export default function DialogSection() {
     newAnswers[dialogStep] = currentAnswer
     setUserAnswers(newAnswers)
 
-    if (dialogStep < turtleQuestions.length - 1) {
+    if (dialogStep < dialogSteps.length - 1) {
       setDialogStep(dialogStep + 1)
       setCurrentAnswer(newAnswers[dialogStep + 1] || '')
     } else {
@@ -63,14 +86,15 @@ export default function DialogSection() {
     setCurrentAnswer(newAnswers[stepIndex] || '')
   }, [dialogStep, currentAnswer, userAnswers])
 
-  const isLastQuestion = dialogStep === turtleQuestions.length - 1
+  const isLastQuestion = dialogStep === dialogSteps.length - 1
   const allAnswered = userAnswers.every(answer => answer.trim() !== '')
+  const currentStep = dialogSteps[dialogStep]
 
   // Global keyboard navigation
   useGlobalKeyboardNavigation({
     dialog: {
       currentStep: dialogStep,
-      totalSteps: turtleQuestions.length,
+      totalSteps: dialogSteps.length,
       goToPrevious: handleBack,
       goToNext: handleNextWrapper,
       goToStep
@@ -104,7 +128,8 @@ export default function DialogSection() {
                   </div>
                 </div>
                 <div className="chat-bubble bg-[#F6CF6B] text-[#564722] text-lg">
-                  Thank you for sharing! Your journey with Maluhia begins now.
+                Deine Aufgabe ist es nun, die ganze Welt zu erleuchten –
+                also teile die Vision von Maluhia mit deinen Liebsten. 💖
                 </div>
               </div>
             ) : (
@@ -120,19 +145,33 @@ export default function DialogSection() {
                     </div>
                   </div>
                   <div className="chat-bubble bg-[#F6CF6B] text-[#564722] text-lg">
-                    {turtleQuestions[dialogStep]}
+                    {currentStep.question}
                   </div>
                 </div>
 
                 {/* Input for current answer */}
-                <div className="form-control mt-6">
-                  <textarea
-                    placeholder="Share your thoughts..."
-                    className="textarea textarea-bordered textarea-lg w-full min-h-32"
-                    value={currentAnswer}
-                    onChange={(e) => setCurrentAnswer(e.target.value)}
-                  />
-                </div>
+                {currentStep.inputType === 'single' && (
+                  <div className="form-control mt-6">
+                    <input
+                      type="text"
+                      placeholder={currentStep.placeholder}
+                      className="input input-bordered input-lg w-full"
+                      value={currentAnswer}
+                      onChange={(e) => setCurrentAnswer(e.target.value)}
+                    />
+                  </div>
+                )}
+
+                {currentStep.inputType === 'multi' && (
+                  <div className="form-control mt-6">
+                    <textarea
+                      placeholder={currentStep.placeholder}
+                      className="textarea textarea-bordered textarea-lg w-full min-h-32"
+                      value={currentAnswer}
+                      onChange={(e) => setCurrentAnswer(e.target.value)}
+                    />
+                  </div>
+                )}
 
                 {/* Navigation buttons */}
                 <div className="flex justify-between items-center mt-6">
@@ -141,7 +180,7 @@ export default function DialogSection() {
                   </ShadowButton>
 
                   <div className="flex gap-2">
-                    {turtleQuestions.map((_, index) => (
+                    {dialogSteps.map((_, index) => (
                       <div
                         key={index}
                         className={`h-3 w-3 rounded-full ${

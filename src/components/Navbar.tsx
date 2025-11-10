@@ -114,7 +114,7 @@ export default function Navbar() {
         isVisible
           ? 'top-0'
           : '-top-24'
-      } ${isWhiteText ? 'text-white' : ''}`}
+      } ${isWhiteText ? 'text-white' : 'text-black'}`}
     >
       {/* Logo - Start */}
       <div className="navbar-start">
@@ -138,7 +138,8 @@ export default function Navbar() {
           </div>
           <ul
             tabIndex={-1}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow-lg"
+            className="menu font-bold dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow-lg"
+            data-theme={`${isWhiteText ? 'light' : 'dark'}`}
           >
                         <li>
               <button
@@ -253,7 +254,8 @@ export default function Navbar() {
           </div>
           <ul
             tabIndex={-1}
-            className="menu dropdown-content bg-base-100 rounded-box z-[1] mt-4 w-52 p-2 shadow-lg"
+            className="menu dropdown-content bg-base-100 rounded-box z-1 mt-4 w-52 p-2 shadow-lg font-bold"
+            data-theme={`${isWhiteText ? 'light' : 'dark'}`}
           >
             <li>
               <button onClick={() => setSelectedLanguage('DE')}>
