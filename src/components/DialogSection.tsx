@@ -5,7 +5,7 @@ import { useGlobalKeyboardNavigation } from '../hooks/useGlobalKeyboardNavigatio
 type InputType = 'single' | 'multi' | 'none'
 
 interface DialogStep {
-  question: string
+  question: string | ((userName: string) => string)
   placeholder?: string
   inputType: InputType
 }
@@ -17,16 +17,16 @@ const dialogSteps: DialogStep[] = [
     inputType: 'single'
   },
   {
-    question: "Lieber Timo, Maluhia bedeutet in der hawaiianischen Kultur \"Frieden\" und \"Harmonie\". Meine Aufgabe ist es, Maluhia wieder in die Herzen der Menschen zu bringen.",
+    question: (userName) => `Lieber ${userName}, Maluhia bedeutet in der hawaiianischen Kultur "Frieden" und "Harmonie". Meine Aufgabe ist es, Maluhia wieder in die Herzen der Menschen zu bringen.`,
     inputType: 'none'
   },
   {
-    question: "Frieden kommt aus den Herzen der Menschen. Was möchte uns dein Herz mitteilen, lieber Timo?",
+    question: (userName) => `Frieden kommt aus den Herzen der Menschen. Was möchte uns dein Herz mitteilen, lieber ${userName}?`,
     placeholder: "Was dein Herz mitteilen möchte...",
     inputType: 'multi'
   },
   {
-    question: "Danke, lieber Timo. Jetzt bist du ein Teil der Maluhia Friedenskette. Setze dein Licht auf die Karte und leuchte für den Frieden.",
+    question: (userName) => `Danke, lieber ${userName}. Jetzt bist du ein Teil der Maluhia Friedenskette. Setze dein Licht auf die Karte und leuchte für den Frieden.`,
     placeholder: "Deine Friedensbotschaft für die Welt...",
     inputType: 'multi'
   }
@@ -90,6 +90,12 @@ export default function DialogSection() {
   const allAnswered = userAnswers.every(answer => answer.trim() !== '')
   const currentStep = dialogSteps[dialogStep]
 
+  // Get the current question with user's name inserted
+  const userName = userAnswers[0] || 'Freund'
+  const currentQuestion = typeof currentStep.question === 'function'
+    ? currentStep.question(userName)
+    : currentStep.question
+
   // Global keyboard navigation
   useGlobalKeyboardNavigation({
     dialog: {
@@ -145,7 +151,7 @@ export default function DialogSection() {
                     </div>
                   </div>
                   <div className="chat-bubble bg-[#F6CF6B] text-[#564722] text-lg">
-                    {currentStep.question}
+                    {currentQuestion}
                   </div>
                 </div>
 
