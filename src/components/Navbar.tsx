@@ -8,6 +8,8 @@ export default function Navbar() {
   const [isHovered, setIsHovered] = useState(false)
   const [selectedLanguage, setSelectedLanguage] = useState('EN')
   const [activeSection, setActiveSection] = useState('home')
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isLanguageOpen, setIsLanguageOpen] = useState(false)
 
   // Scroll-Handler
   useEffect(() => {
@@ -83,6 +85,23 @@ export default function Navbar() {
     return () => clearTimeout(hideTimeout)
   }, [lastScrollTime, isScrolled, isVisible, isHovered, activeSection])
 
+  // Mouse-Move-Handler: Navbar erscheint bei Annäherung an oberen Bildschirmrand
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // Wenn Maus innerhalb der oberen 100px des Viewports ist
+      if (e.clientY < 100) {
+        setIsVisible(true)
+        setLastScrollTime(Date.now()) // Reset inactivity timer
+      } else if (e.clientY > 150 && !isHovered && !isMenuOpen && !isLanguageOpen && activeSection !== 'home') {
+        // Wenn Maus nicht am oberen Rand und keine Dropdowns offen, verstecken
+        setIsVisible(false)
+      }
+    }
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [isHovered, isMenuOpen, isLanguageOpen, activeSection])
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
@@ -120,7 +139,12 @@ export default function Navbar() {
       <div className="navbar-start">
         {/* Mobile Menu Button */}
         <div className="dropdown lg:hidden">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost btn-circle"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -140,10 +164,11 @@ export default function Navbar() {
             tabIndex={-1}
             className="menu font-bold dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow-lg"
             data-theme={`${isWhiteText ? 'light' : 'dark'}`}
+            onBlur={() => setIsMenuOpen(false)}
           >
                         <li>
               <button
-                onClick={() => scrollToSection('home')}
+                onClick={() => { scrollToSection('home'); setIsMenuOpen(false); }}
                 className={activeSection === 'home' ? 'active' : ''}
               >
                 Start
@@ -151,7 +176,7 @@ export default function Navbar() {
             </li>
             <li>
               <button
-                onClick={() => scrollToSection('story')}
+                onClick={() => { scrollToSection('story'); setIsMenuOpen(false); }}
                 className={activeSection === 'story' ? 'active' : ''}
               >
                 Story
@@ -159,7 +184,7 @@ export default function Navbar() {
             </li>
             <li>
               <button
-                onClick={() => scrollToSection('join')}
+                onClick={() => { scrollToSection('join'); setIsMenuOpen(false); }}
                 className={activeSection === 'join' ? 'active' : ''}
               >
                 Join
@@ -167,7 +192,7 @@ export default function Navbar() {
             </li>
             <li>
               <button
-                onClick={() => scrollToSection('map')}
+                onClick={() => { scrollToSection('map'); setIsMenuOpen(false); }}
                 className={activeSection === 'map' ? 'active' : ''}
               >
                 Map
@@ -175,7 +200,7 @@ export default function Navbar() {
             </li>
             <li>
               <button
-                onClick={() => scrollToSection('crowdfunding')}
+                onClick={() => { scrollToSection('crowdfunding'); setIsMenuOpen(false); }}
                 className={activeSection === 'crowdfunding' ? 'active' : ''}
               >
                 Crowdfunding
@@ -235,7 +260,12 @@ export default function Navbar() {
       <div className="navbar-end gap-2">
         {/* Language Dropdown */}
         <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className={`btn btn-ghost gap-2 transition-all duration-500 ease-in-out `}>
+          <div
+            tabIndex={0}
+            role="button"
+            className={`btn btn-ghost gap-2 transition-all duration-500 ease-in-out `}
+            onClick={() => setIsLanguageOpen(!isLanguageOpen)}
+          >
             <span className="font-semibold">{selectedLanguage}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -256,29 +286,30 @@ export default function Navbar() {
             tabIndex={-1}
             className="menu dropdown-content bg-base-100 rounded-box z-1 mt-4 w-52 p-2 shadow-lg font-bold"
             data-theme={`${isWhiteText ? 'light' : 'dark'}`}
+            onBlur={() => setIsLanguageOpen(false)}
           >
             <li>
-              <button onClick={() => setSelectedLanguage('DE')}>
+              <button onClick={() => { setSelectedLanguage('DE'); setIsLanguageOpen(false); }}>
                 🇩🇪 Deutsch
               </button>
             </li>
             <li>
-              <button onClick={() => setSelectedLanguage('EN')}>
+              <button onClick={() => { setSelectedLanguage('EN'); setIsLanguageOpen(false); }}>
                 🇬🇧 English
               </button>
             </li>
             <li>
-              <button onClick={() => setSelectedLanguage('ES')}>
+              <button onClick={() => { setSelectedLanguage('ES'); setIsLanguageOpen(false); }}>
                 🇪🇸 Español
               </button>
             </li>
             <li>
-              <button onClick={() => setSelectedLanguage('FR')}>
+              <button onClick={() => { setSelectedLanguage('FR'); setIsLanguageOpen(false); }}>
                 🇫🇷 Français
               </button>
             </li>
             <li>
-              <button onClick={() => setSelectedLanguage('PT')}>
+              <button onClick={() => { setSelectedLanguage('PT'); setIsLanguageOpen(false); }}>
                 🇵🇹 Português
               </button>
             </li>

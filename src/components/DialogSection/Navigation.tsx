@@ -23,14 +23,29 @@ export function Navigation({
   currentAnswer
 }: NavigationProps) {
   const isNextDisabled = currentInputType !== 'none' && !currentAnswer.trim()
+  const isFirstQuestion = currentStep === 0
+
+  const handleNextClick = () => {
+    if (isLastQuestion) {
+      // Scroll to map section
+      const mapSection = document.getElementById('map')
+      if (mapSection) {
+        mapSection.scrollIntoView({ behavior: 'smooth' })
+      }
+    } else {
+      onNext()
+    }
+  }
 
   return (
     <div className="flex justify-between items-center mt-6">
-      <ShadowButton onClick={onBack}>
-        Zurück
-      </ShadowButton>
+      {!isFirstQuestion && (
+        <ShadowButton onClick={onBack}>
+          Zurück
+        </ShadowButton>
+      )}
 
-      <div className="flex gap-2">
+      <div className={`flex gap-2 ${isFirstQuestion ? 'mx-auto' : ''}`}>
         {Array.from({ length: totalSteps }).map((_, index) => (
           <div
             key={index}
@@ -46,7 +61,7 @@ export function Navigation({
       </div>
 
       <ShadowButton
-        onClick={onNext}
+        onClick={handleNextClick}
         disabled={isNextDisabled}
       >
         {isLastQuestion ? 'Fertig' : 'Weiter'}

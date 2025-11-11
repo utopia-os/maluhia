@@ -23,5 +23,9 @@ export const dialogSteps: DialogStep[] = [
     question: (userName) => `Danke, lieber ${userName}! Sag mir wo du gerade bist damit wir dein Licht auf die Karte setzen können.`,
     placeholder: "Deine Stadt, Region oder Adresse",
     inputType: 'single'
+  },
+  {
+    question: () => `Deine Aufgabe ist es nun, die ganze Welt zu erleuchten – also teile die Vision von Maluhia mit deinen Liebsten. 💖`,
+    inputType: 'none'
   }
 ]

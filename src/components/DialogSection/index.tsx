@@ -5,7 +5,6 @@ import { useStepTransition } from './useStepTransition'
 import { TurtleQuestion } from './TurtleQuestion'
 import { InputField } from './InputField'
 import { Navigation } from './Navigation'
-import ShadowButton from '../ShadowButton'
 
 export default function DialogSection() {
   const [dialogStep, setDialogStep] = useState(0)
@@ -14,7 +13,6 @@ export default function DialogSection() {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [showInput, setShowInput] = useState(false)
   const [hasEnteredSection, setHasEnteredSection] = useState(false)
-  const [isCompleted, setIsCompleted] = useState(false)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -50,19 +48,10 @@ export default function DialogSection() {
         newAnswers[dialogStep + 1] || '',
         nextStep.inputType
       )
-    } else {
-      // Last question completed - show completion message
-      setIsCompleted(true)
     }
   }, [dialogStep, currentAnswer, userAnswers, transitionToStep])
 
   const handleBack = useCallback(() => {
-    // If coming back from completion screen
-    if (isCompleted) {
-      setIsCompleted(false)
-      return
-    }
-
     if (dialogStep > 0) {
       const newAnswers = [...userAnswers]
       newAnswers[dialogStep] = currentAnswer
@@ -75,12 +64,9 @@ export default function DialogSection() {
         prevStep.inputType
       )
     }
-  }, [dialogStep, currentAnswer, userAnswers, transitionToStep, isCompleted])
+  }, [dialogStep, currentAnswer, userAnswers, transitionToStep])
 
   const goToStep = useCallback((stepIndex: number) => {
-    // Reset completion state when navigating
-    setIsCompleted(false)
-
     const newAnswers = [...userAnswers]
     newAnswers[dialogStep] = currentAnswer
     setUserAnswers(newAnswers)
@@ -180,66 +166,42 @@ export default function DialogSection() {
   }, [currentStep.inputType, handleNext])
 
   return (
-    <section ref={sectionRef} className="dialog-section py-8 sm:p-16 h-dvh bg-transparent flex items-center">
-      <div className="container mx-auto px-4 max-w-4xl">
+    <section ref={sectionRef} className="dialog-section py-8 sm:py-16 h-dvh bg-transparent flex items-start justify-center relative">
+      <div className="container mx-auto px-4 max-w-4xl pt-8 sm:pt-32">
         <div className="card p-0! bg-transparent">
           <div className="card-body">
-            {/* Show completion message when dialog is completed */}
-            {isCompleted ? (
-              <>
-                <div className="chat chat-start" style={{ alignItems: 'start' }}>
-                  <div className="chat-image avatar">
-                    <div className="w-32">
-                      <img
-                        alt="Turtle guide"
-                        src={`${import.meta.env.BASE_URL}turtle.png`}
-                      />
-                    </div>
-                  </div>
-                  <div className="chat-bubble bg-[#F6CF6B] text-[#564722] text-lg rounded-r-3xl rounded-t-3xl">
-                    Deine Aufgabe ist es nun, die ganze Welt zu erleuchten –
-                    also teile die Vision von Maluhia mit deinen Liebsten. 💖
-                  </div>
-                </div>
-                <div className="flex justify-start items-center mt-6">
-                  <ShadowButton onClick={handleBack}>
-                    Zurück
-                  </ShadowButton>
-                </div>
-              </>
-            ) : (
-              <>
-                <TurtleQuestion
-                  question={currentQuestion}
-                  isTransitioning={isTransitioning}
-                  turtleImageUrl={`${import.meta.env.BASE_URL}turtle.png`}
-                />
+            <TurtleQuestion
+              question={currentQuestion}
+              isTransitioning={isTransitioning}
+            />
 
-                <InputField
-                  inputType={currentStep.inputType}
-                  placeholder={currentStep.placeholder}
-                  value={currentAnswer}
-                  onChange={setCurrentAnswer}
-                  onEnter={handleNext}
-                  inputRef={inputRef}
-                  textareaRef={textareaRef}
-                  showInput={showInput}
-                  isTransitioning={isTransitioning}
-                />
-
-                <Navigation
-                  onBack={handleBack}
-                  onNext={handleNext}
-                  currentStep={dialogStep}
-                  totalSteps={dialogSteps.length}
-                  userAnswers={userAnswers}
-                  isLastQuestion={isLastQuestion}
-                  currentInputType={currentStep.inputType}
-                  currentAnswer={currentAnswer}
-                />
-              </>
-            )}
+            <InputField
+              inputType={currentStep.inputType}
+              placeholder={currentStep.placeholder}
+              value={currentAnswer}
+              onChange={setCurrentAnswer}
+              onEnter={handleNext}
+              inputRef={inputRef}
+              textareaRef={textareaRef}
+              showInput={showInput}
+              isTransitioning={isTransitioning}
+            />
           </div>
+        </div>
+      </div>
+
+      <div className="absolute bottom-8 sm:bottom-16 left-0 right-0">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <Navigation
+            onBack={handleBack}
+            onNext={handleNext}
+            currentStep={dialogStep}
+            totalSteps={dialogSteps.length}
+            userAnswers={userAnswers}
+            isLastQuestion={isLastQuestion}
+            currentInputType={currentStep.inputType}
+            currentAnswer={currentAnswer}
+          />
         </div>
       </div>
     </section>

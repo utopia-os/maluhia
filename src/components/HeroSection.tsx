@@ -17,7 +17,7 @@ export default function HeroSection() {
       <div className="hero-content text-center">
         <div className="max-w-xl">
           <h1 className="text-9xl sm:text-[192px] text-[#297D95]" style={{ fontFamily: '"Reenie Beanie", cursive' }}>Maluhia</h1>
-          <p className="text-2xl max-w-lg sm:text-[36px] font-bold  text-[#E37039]/80 mb-8 sm:mb-16" style={{ fontFamily: '"Reenie Beanie", cursive' }}>Wir tragen den Frieden aus unseren Herzen in die Welt</p>
+          <p className="text-2xl max-w-lg sm:text-[36px] font-bold  text-[#E37039]/80 mb-8 sm:mb-16" style={{ fontFamily: '"Reenie Beanie", cursive' }}>Frieden kommt aus dem Herzen</p>
           <ShadowButton onClick={scrollToNextSection} >
             Reise Starten
           </ShadowButton>
