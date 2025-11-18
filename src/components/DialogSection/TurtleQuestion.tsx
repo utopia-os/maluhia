@@ -21,7 +21,7 @@ export function TurtleQuestion({ question, isTransitioning }: TurtleQuestionProp
         <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-0 h-0 border-l-16 border-r-16 border-b-16 border-l-transparent border-r-transparent border-b-[#F6CF6B] sm:hidden" />
 
         {/* Triangle pointer for desktop (left) */}
-        <div className="hidden sm:block absolute -left-4 top-8 w-0 h-0 border-t-16 border-b-16 border-r-16 border-t-transparent border-b-transparent border-r-[#F6CF6B]" />
+        <div className="hidden sm:block absolute -left-4 top-6 w-0 h-0 border-t-16 border-b-16 border-r-16 border-t-transparent border-b-transparent border-r-[#F6CF6B]" />
 
         {question}
       </div>

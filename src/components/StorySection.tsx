@@ -11,7 +11,7 @@ const slides = [
   },
   {
     image: `${import.meta.env.BASE_URL}story/23.png`,
-    text: 'Die Honu trug auf ihrem Panzer das Symbol von Maluhiia (Fieden) das in uns wächst und sich ausbreitet – von Herz zu Herz, wie eine Welle. Man sagt in diesem kraftvollen Zeichen, sei die Erinnerung der Welt verborgen – die Lieder der Ahnen, die Wege der Sterne, das Flüstern der Erde.',
+    text: 'Die Honu trug auf ihrem Panzer das Symbol von Maluhia (Frieden) das in uns wächst und sich ausbreitet – von Herz zu Herz, wie eine Welle. Man sagt in diesem kraftvollen Zeichen, sei die Erinnerung der Welt verborgen – die Lieder der Ahnen, die Wege der Sterne, das Flüstern der Erde.',
     horizontal: 'right',
     vertical: 'bottom'
   },

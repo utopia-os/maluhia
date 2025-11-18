@@ -16,7 +16,7 @@ export const dialogSteps: DialogStep[] = [
   },
   {
     question: (userName) => `Frieden kommt aus den Herzen der Menschen. Was möchte uns dein Herz mitteilen, lieber ${userName}?`,
-    placeholder: "Deine Freidensbotschaft an die Welt ...",
+    placeholder: "Deine Friedensbotschaft an die Welt ...",
     inputType: 'multi'
   },
   {

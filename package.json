@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ttanton/animated-turtle": "^1.0.6",
+    "@ttanton/animated-turtle": "^1.0.8",
     "framer-motion": "^12.23.24",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"

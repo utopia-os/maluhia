@@ -317,7 +317,7 @@ export default function Navbar() {
         </div>
 
         {/* Login Button - Orange gradient like in screenshots */}
-        <button className={`btn bg-gradient-to-r from-orange-500 to-orange-600 text-white border-none hover:from-orange-600 hover:to-orange-700 rounded-full transition-all duration-500 ease-in-out px-8`}>
+        <button className={`btn bg-linear-to-r from-orange-500 to-orange-600 text-white border-none hover:from-orange-600 hover:to-orange-700 rounded-full transition-all duration-500 ease-in-out px-8`}>
           Login
         </button>
       </div>
