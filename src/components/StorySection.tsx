@@ -342,7 +342,7 @@ export default function StorySection() {
             </HTMLFlipBook>
 
           {/* Page number display - inside book */}
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-50 px-3 py-1 rounded-full bg-black/40 backdrop-blur-sm text-white/80 text-xs font-serif">
+          <div className="absolute cursor-pointer bottom-3 left-1/2 -translate-x-1/2 z-50 px-3 py-1 rounded-full bg-black/40 backdrop-blur-sm text-white/80 text-xs font-serif">
             {currentPage + 1} / {slides.length}
           </div>
         </div>
@@ -350,7 +350,7 @@ export default function StorySection() {
         {/* Next button - positioned dynamically */}
         <button
           onClick={goToNext}
-          className="absolute top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-[#F6CF6B] text-[#564722] shadow-[0_6px_0_0_#E37039] hover:shadow-[0_8px_0_0_#E37039] active:shadow-[0_4px_0_0_#E37039] active:translate-y-[calc(-50%+4px)] transition-all duration-150 flex items-center justify-center"
+          className="absolute cursor-pointer top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-[#F6CF6B] text-[#564722] shadow-[0_6px_0_0_#E37039] hover:shadow-[0_8px_0_0_#E37039] active:shadow-[0_4px_0_0_#E37039] active:translate-y-[calc(-50%+4px)] transition-all duration-150 flex items-center justify-center"
           style={{ right: `calc(50% - ${bookWidth / 2 + buttonSize + buttonOffset}px)` }}
           aria-label="Nächste Seite"
         >
