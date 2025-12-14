@@ -5,61 +5,79 @@ import { useGlobalKeyboardNavigation } from '../hooks/useGlobalKeyboardNavigatio
 const slides = [
   {
     image: `${import.meta.env.BASE_URL}story/1.png`,
+    audio: `${import.meta.env.BASE_URL}story/audio/1.mp3`,
     text: 'In den Tiefen des weiten Ozeans lebte vor langer, langer Zeit die Honu, die alte Meeresschildkröte. Langsam und leise glitt sie durch das Wasser, so still, dass selbst die Wellen innehielten, um ihr zuzusehen.',
     horizontal: 'left' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/23.png`,
+    audio: `${import.meta.env.BASE_URL}story/audio/2.mp3`,
     text: 'Die Honu trug auf ihrem Panzer das Symbol von Maluhia (Frieden) das in uns wächst und sich ausbreitet – von Herz zu Herz, wie eine Welle. Man sagt in diesem kraftvollen Zeichen, sei die Erinnerung der Welt verborgen – die Lieder der Ahnen, die Wege der Sterne, das Flüstern der Erde.',
     horizontal: 'right' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/3.png`,
+    audio: `${import.meta.env.BASE_URL}story/audio/3.mp3`,
     text: 'Die uralte Schildkröte liebte ihren blauen Planeten sehr: die Felsen, das Wasser, die Pflanzen, die Tiere … Vor allem liebte sie die Menschen, denn aus den Augen ihrer Kinder lächelte die Liebe des unendlichen Weltengeistes.',
     horizontal: 'left' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/4.png`,
+    audio: `${import.meta.env.BASE_URL}story/audio/4.mp3`,
     text: 'Doch eines Nachts kam der große Schatten und legte sich in die Herzen der Menschen. Erschrocken sah Honu, dass die Menschen immer unglücklicher wurden, sodass sie ihren Planeten zu hassen begannen und einander mit immer grausameren Kriegen quälten.',
     horizontal: 'right' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/5.png`,
-    text: 'Da beschloss die Honu, zu allen Ufern der Erde zu schwimmen und den Menschen das Licht zurückzubringen. Sie schwamm Tag für Tag, Nacht für Nacht, Jahr für Jahr. Sie überquerte Ozeane, sah die Strände vieler Länder, und überall, wo sie vorbeikam, hinterließ sie eine Spur aus Licht.',
+    audio: `${import.meta.env.BASE_URL}story/audio/5.mp3`,
+    text: 'Da beschloss die Honu, zu allen Ufern der Erde zu schwimmen und den Menschen das Licht zurückzubringen.',
+    horizontal: 'left' as const,
+  },
+  {
+    image: `${import.meta.env.BASE_URL}story/5.png`,
+    audio: `${import.meta.env.BASE_URL}story/audio/6.mp3`,
+    text: 'Sie schwamm Tag für Tag, Nacht für Nacht, Jahr für Jahr. Sie überquerte Ozeane, sah die Strände vieler Länder, und überall, wo sie vorbeikam, hinterließ sie eine Spur aus Licht.',
     horizontal: 'left' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/6.jpg`,
+    audio: `${import.meta.env.BASE_URL}story/audio/7.mp3`,
     text: 'Dieses Licht verband die Küsten miteinander – so wie Kinder ihre Hände halten, wenn sie einen Kreis bilden. Und so wurden die Menschen, die Tiere, die Bäume und die Flüsse wieder miteinander verbunden – durch das sanfte Leuchten der Honu.',
     horizontal: 'right' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/7.jpg`,
+    audio: `${import.meta.env.BASE_URL}story/audio/8.mp3`,
     text: 'Manchmal, wenn Stürme tobten und die Wellen hochschlugen, blieb die Honu ganz ruhig. Sie wusste: Frieden entsteht nicht durch Eile, sondern durch Geduld. „Aloha", flüsterte sie in den Wind – und der Wind brachte Liebe und Mitgefühl zu den Herzen der Menschen.',
     horizontal: 'left' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/8.jpg`,
+    audio: `${import.meta.env.BASE_URL}story/audio/9.mp3`,
     text: 'Wenn die Honu Inseln erreichte, erinnerte sie die Menschen an Lokahi – die Harmonie, die entsteht, wenn alle zusammenstehen wie die Wellen am Ufer. Und wenn sie weiterzog, hinterließ sie das Geschenk von Pono – das Gleichgewicht, das wie eine Waage den Frieden trägt.',
     horizontal: 'right' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/9.jpg`,
+    audio: `${import.meta.env.BASE_URL}story/audio/10.mp3`,
     text: 'Und wenn Herzen schwer wurden, wenn Streit oder Kummer die Menschen trennten, dann schwamm die Honu nah an den Strand. Ihr Atem war tief und warm, und er duftete nach Hoʻoponopono: nach Vergebung, nach Wieder-Heilwerden, nach Zurückfinden zueinander.',
     horizontal: 'left' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/10.jpg`,
+    audio: `${import.meta.env.BASE_URL}story/audio/11.mp3`,
     text: 'So wurde die Honu zur Hüterin des Friedens. Sie schwamm von Kontinent zu Kontinent, von Volk zu Volk, und überall, wo sie ankam, öffneten sich die Herzen der Menschen. Sie begannen, ihr eigenes Licht zu entzünden – ein kleines Feuer des Friedens, das in der Dunkelheit leuchtete.',
     horizontal: 'right' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/11.jpg`,
+    audio: `${import.meta.env.BASE_URL}story/audio/12.mp3`,
     text: 'Eines Tages, so erzählt man, werden all diese Lichter zusammenfinden – wie die Sterne am Himmel zu einem einzigen großen Ozean. Dann wird die Erde selbst leuchten, so hell wie die Sonne, und jeder Mensch wird wissen: Wir sind verbunden. Wir sind eins.',
     horizontal: 'left' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/12.jpg`,
+    audio: `${import.meta.env.BASE_URL}story/audio/13.mp3`,
     text: 'Und noch heute, wenn du am Meer stehst und die Wellen beobachtest, kannst du sie vielleicht sehen – die Honu, wie sie ruhig und still vorbeigleitet. Und wenn du genau hinhörst, dann hörst du vielleicht ihr Lied: Das Lied vom Frieden. Das Lied von Maluhia.',
     horizontal: 'right' as const,
   }
@@ -170,9 +188,61 @@ const pages = generatePages()
 export default function StorySection() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const bookRef = useRef<any>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
   const [currentPage, setCurrentPage] = useState(0)
   const [dimensions, setDimensions] = useState({ width: 600, height: 400 })
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200)
+  const [audioEnabled, setAudioEnabled] = useState(false)
+
+  // Stop any currently playing audio
+  const stopAudio = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current.currentTime = 0
+      audioRef.current = null
+    }
+  }, [])
+
+  // Play audio for a specific slide (always stops current audio first)
+  const playAudioForSlide = useCallback((slideIndex: number, forcePlay = false) => {
+    // Always stop current audio first
+    stopAudio()
+
+    // Only play if audio is enabled (or forced when toggling on)
+    if (!audioEnabled && !forcePlay) return
+
+    const slide = slides[slideIndex]
+    if (!slide?.audio) return
+
+    // Create and play new audio
+    audioRef.current = new Audio(slide.audio)
+    audioRef.current.play().catch(() => {
+      // Ignore autoplay errors
+    })
+  }, [audioEnabled, stopAudio])
+
+  // Toggle audio on/off
+  const toggleAudio = useCallback(() => {
+    if (audioEnabled) {
+      // Turning off - stop audio
+      stopAudio()
+      setAudioEnabled(false)
+    } else {
+      // Turning on - start playing current page
+      setAudioEnabled(true)
+      playAudioForSlide(currentPage, true)
+    }
+  }, [audioEnabled, currentPage, playAudioForSlide, stopAudio])
+
+  // Cleanup audio on unmount
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current = null
+      }
+    }
+  }, [])
 
   // Calculate book dimensions based on container
   useEffect(() => {
@@ -244,8 +314,10 @@ export default function StorySection() {
 
   const onFlip = useCallback((e: { data: number }) => {
     // Convert page index back to slide index
-    setCurrentPage(Math.floor(e.data / 2))
-  }, [])
+    const newSlideIndex = Math.floor(e.data / 2)
+    setCurrentPage(newSlideIndex)
+    playAudioForSlide(newSlideIndex)
+  }, [playAudioForSlide])
 
   useGlobalKeyboardNavigation({
     story: {
@@ -284,7 +356,7 @@ export default function StorySection() {
         {/* Previous button - positioned dynamically */}
         <button
           onClick={goToPrevious}
-          className="absolute top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-[#F6CF6B] text-[#564722] shadow-[0_6px_0_0_#E37039] hover:shadow-[0_8px_0_0_#E37039] active:shadow-[0_4px_0_0_#E37039] active:translate-y-[calc(-50%+4px)] transition-all duration-150 flex items-center justify-center"
+          className="absolute cursor-pointer top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-[#F6CF6B] text-[#564722] shadow-[0_6px_0_0_#E37039] hover:shadow-[0_8px_0_0_#E37039] active:shadow-[0_4px_0_0_#E37039] active:translate-y-[calc(-50%+4px)] transition-all duration-150 flex items-center justify-center"
           style={{ left: `calc(50% - ${bookWidth / 2 + buttonSize + buttonOffset}px)` }}
           aria-label="Vorherige Seite"
         >
@@ -341,10 +413,31 @@ export default function StorySection() {
               ))}
             </HTMLFlipBook>
 
-          {/* Page number display - inside book */}
-          <div className="absolute cursor-pointer bottom-3 left-1/2 -translate-x-1/2 z-50 px-3 py-1 rounded-full bg-black/40 backdrop-blur-sm text-white/80 text-xs font-serif">
+          {/* Page number display - center bottom */}
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-50 px-3 py-1 rounded-full bg-black/40 backdrop-blur-sm text-white/80 text-xs font-serif">
             {currentPage + 1} / {slides.length}
           </div>
+
+          {/* Audio toggle - bottom right */}
+          <button
+            onClick={toggleAudio}
+            className="absolute bottom-3 right-3 z-50 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm text-white/80 hover:bg-black/60 transition-colors flex items-center justify-center"
+            aria-label={audioEnabled ? 'Ton ausschalten' : 'Ton einschalten'}
+          >
+            {audioEnabled ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                <line x1="23" y1="9" x2="17" y2="15" />
+                <line x1="17" y1="9" x2="23" y2="15" />
+              </svg>
+            )}
+          </button>
         </div>
 
         {/* Next button - positioned dynamically */}
