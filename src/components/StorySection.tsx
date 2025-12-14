@@ -491,12 +491,22 @@ export default function StorySection() {
 
           {/* Fullscreen button - bottom right */}
           <button
-            onClick={() => {
+            onClick={async () => {
               const section = document.getElementById('story')
               if (document.fullscreenElement) {
+                // Exit fullscreen and unlock orientation
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (screen.orientation as any)?.unlock?.()
                 document.exitFullscreen()
               } else {
-                section?.requestFullscreen()
+                // Enter fullscreen and try to force landscape on mobile
+                await section?.requestFullscreen()
+                try {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  await (screen.orientation as any)?.lock?.('landscape')
+                } catch {
+                  // Orientation lock not supported or not allowed
+                }
               }
             }}
             className="absolute bottom-3 right-3 z-50 w-10 h-10 lg:w-8 lg:h-8 rounded-full bg-black/40 backdrop-blur-sm text-white/80 hover:bg-black/60 transition-colors flex items-center justify-center"
