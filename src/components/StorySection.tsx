@@ -4,82 +4,95 @@ import { useGlobalKeyboardNavigation } from '../hooks/useGlobalKeyboardNavigatio
 
 const slides = [
   {
-    image: `${import.meta.env.BASE_URL}story/1.png`,
+    image: `${import.meta.env.BASE_URL}story/1-1.png`,
     audio: `${import.meta.env.BASE_URL}story/audio/1.mp3`,
     text: 'In den Tiefen des weiten Ozeans lebte vor langer, langer Zeit die Honu, die alte Meeresschildkröte. Langsam und leise glitt sie durch das Wasser, so still, dass selbst die Wellen innehielten, um ihr zuzusehen.',
     horizontal: 'left' as const,
+    vertical: 'top' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/23.png`,
     audio: `${import.meta.env.BASE_URL}story/audio/2.mp3`,
     text: 'Die Honu trug auf ihrem Panzer das Symbol von Maluhia (Frieden) das in uns wächst und sich ausbreitet – von Herz zu Herz, wie eine Welle. Man sagt in diesem kraftvollen Zeichen, sei die Erinnerung der Welt verborgen – die Lieder der Ahnen, die Wege der Sterne, das Flüstern der Erde.',
     horizontal: 'right' as const,
+    vertical: 'bottom' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/3.png`,
+    image: `${import.meta.env.BASE_URL}story/3-1.png`,
     audio: `${import.meta.env.BASE_URL}story/audio/3.mp3`,
     text: 'Die uralte Schildkröte liebte ihren blauen Planeten sehr: die Felsen, das Wasser, die Pflanzen, die Tiere … Vor allem liebte sie die Menschen, denn aus den Augen ihrer Kinder lächelte die Liebe des unendlichen Weltengeistes.',
     horizontal: 'left' as const,
+    vertical: 'top' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/4.png`,
     audio: `${import.meta.env.BASE_URL}story/audio/4.mp3`,
     text: 'Doch eines Nachts kam der große Schatten und legte sich in die Herzen der Menschen. Erschrocken sah Honu, dass die Menschen immer unglücklicher wurden, sodass sie ihren Planeten zu hassen begannen und einander mit immer grausameren Kriegen quälten.',
     horizontal: 'right' as const,
+    vertical: 'bottom' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/5.png`,
     audio: `${import.meta.env.BASE_URL}story/audio/5.mp3`,
     text: 'Da beschloss die Honu, zu allen Ufern der Erde zu schwimmen und den Menschen das Licht zurückzubringen.',
     horizontal: 'left' as const,
+    vertical: 'center' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/5.png`,
+    image: `${import.meta.env.BASE_URL}story/5-1.png`,
     audio: `${import.meta.env.BASE_URL}story/audio/6.mp3`,
-    text: 'Sie schwamm Tag für Tag, Nacht für Nacht, Jahr für Jahr. Sie überquerte Ozeane, sah die Strände vieler Länder, und überall, wo sie vorbeikam, hinterließ sie eine Spur aus Licht.',
+    text: 'Sie schwamm Tag für Tag, Nacht für Nacht, Jahr für Jahr. Sie überquerte Ozeane, sah die Strände vieler Länder, und überall, wo sie vorbeikam, hinterließ sie eine Spur aus Licht. Dieses Licht verband die Küsten miteinander – so wie Kinder ihre Hände halten, wenn sie einen Kreis bilden. Und so wurden die Menschen, die Tiere, die Bäume und die Flüsse wieder miteinander verbunden – durch das sanfte Leuchten der Honu.',
     horizontal: 'left' as const,
-  },
-  {
-    image: `${import.meta.env.BASE_URL}story/6.jpg`,
-    audio: `${import.meta.env.BASE_URL}story/audio/7.mp3`,
-    text: 'Dieses Licht verband die Küsten miteinander – so wie Kinder ihre Hände halten, wenn sie einen Kreis bilden. Und so wurden die Menschen, die Tiere, die Bäume und die Flüsse wieder miteinander verbunden – durch das sanfte Leuchten der Honu.',
-    horizontal: 'right' as const,
-  },
-  {
-    image: `${import.meta.env.BASE_URL}story/7.jpg`,
-    audio: `${import.meta.env.BASE_URL}story/audio/8.mp3`,
-    text: 'Manchmal, wenn Stürme tobten und die Wellen hochschlugen, blieb die Honu ganz ruhig. Sie wusste: Frieden entsteht nicht durch Eile, sondern durch Geduld. „Aloha", flüsterte sie in den Wind – und der Wind brachte Liebe und Mitgefühl zu den Herzen der Menschen.',
-    horizontal: 'left' as const,
-  },
-  {
-    image: `${import.meta.env.BASE_URL}story/8.jpg`,
-    audio: `${import.meta.env.BASE_URL}story/audio/9.mp3`,
-    text: 'Wenn die Honu Inseln erreichte, erinnerte sie die Menschen an Lokahi – die Harmonie, die entsteht, wenn alle zusammenstehen wie die Wellen am Ufer. Und wenn sie weiterzog, hinterließ sie das Geschenk von Pono – das Gleichgewicht, das wie eine Waage den Frieden trägt.',
-    horizontal: 'right' as const,
+    vertical: 'center' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/9.jpg`,
-    audio: `${import.meta.env.BASE_URL}story/audio/10.mp3`,
+    audio: `${import.meta.env.BASE_URL}story/audio/7.mp3`,
+    text: 'Manchmal, wenn Stürme tobten und die Wellen hochschlugen, blieb die Honu ganz ruhig. Sie wusste: Frieden entsteht nicht durch Eile, sondern durch Geduld. „Aloha", flüsterte sie in den Wind – und der Wind brachte Liebe und Mitgefühl zu den Herzen der Menschen.',
+    horizontal: 'right' as const,
+    vertical: 'center' as const,
+  },
+  {
+    image: `${import.meta.env.BASE_URL}story/8.jpg`,
+    audio: `${import.meta.env.BASE_URL}story/audio/8.mp3`,
+    text: 'Wenn die Honu Inseln erreichte, erinnerte sie die Menschen an Lokahi – die Harmonie, die entsteht, wenn alle zusammenstehen wie die Wellen am Ufer. Und wenn sie weiterzog, hinterließ sie das Geschenk von Pono – das Gleichgewicht, das wie eine Waage den Frieden trägt.',
+    horizontal: 'right' as const,
+    vertical: 'center' as const,
+  },
+  {
+    image: `${import.meta.env.BASE_URL}story/9.jpg`,
+    audio: `${import.meta.env.BASE_URL}story/audio/9.mp3`,
     text: 'Und wenn Herzen schwer wurden, wenn Streit oder Kummer die Menschen trennten, dann schwamm die Honu nah an den Strand. Ihr Atem war tief und warm, und er duftete nach Hoʻoponopono: nach Vergebung, nach Wieder-Heilwerden, nach Zurückfinden zueinander.',
     horizontal: 'left' as const,
+    vertical: 'center' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/10.jpg`,
+    image: `${import.meta.env.BASE_URL}story/10.png`,
+    audio: `${import.meta.env.BASE_URL}story/audio/10.mp3`,
+    text: 'So wurde die Honu zur Hüterin des Friedens. Sie schwamm von Kontinent zu Kontinent, von Volk zu Volk, und überall, wo sie ankam, öffneten sich die Herzen der Menschen.',
+    horizontal: 'left' as const,
+    vertical: 'center' as const,
+  },
+  {
+    image: `${import.meta.env.BASE_URL}story/10-1.png`,
     audio: `${import.meta.env.BASE_URL}story/audio/11.mp3`,
-    text: 'So wurde die Honu zur Hüterin des Friedens. Sie schwamm von Kontinent zu Kontinent, von Volk zu Volk, und überall, wo sie ankam, öffneten sich die Herzen der Menschen. Sie begannen, ihr eigenes Licht zu entzünden – ein kleines Feuer des Friedens, das in der Dunkelheit leuchtete.',
+    text: 'Sie begannen, ihr eigenes Licht zu entzünden – ein kleines Feuer des Friedens, das in der Dunkelheit leuchtete.',
     horizontal: 'right' as const,
+    vertical: 'top' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/11.jpg`,
+    image: `${import.meta.env.BASE_URL}story/16.png`,
     audio: `${import.meta.env.BASE_URL}story/audio/12.mp3`,
     text: 'Eines Tages, so erzählt man, werden all diese Lichter zusammenfinden – wie die Sterne am Himmel zu einem einzigen großen Ozean. Dann wird die Erde selbst leuchten, so hell wie die Sonne, und jeder Mensch wird wissen: Wir sind verbunden. Wir sind eins.',
     horizontal: 'left' as const,
+    vertical: 'top' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/12.jpg`,
+    image: `${import.meta.env.BASE_URL}story/17.png`,
     audio: `${import.meta.env.BASE_URL}story/audio/13.mp3`,
     text: 'Und noch heute, wenn du am Meer stehst und die Wellen beobachtest, kannst du sie vielleicht sehen – die Honu, wie sie ruhig und still vorbeigleitet. Und wenn du genau hinhörst, dann hörst du vielleicht ihr Lied: Das Lied vom Frieden. Das Lied von Maluhia.',
-    horizontal: 'right' as const,
+    horizontal: 'left' as const,
+    vertical: 'top' as const,
   }
 ]
 
@@ -90,11 +103,19 @@ interface PageProps {
   side: 'left' | 'right'
   hasText: boolean
   textSide: 'left' | 'right'
+  textVertical: 'top' | 'center' | 'bottom'
 }
 
-const Page = forwardRef<HTMLDivElement, PageProps>(({ image, text, side, hasText, textSide }, ref) => {
+const Page = forwardRef<HTMLDivElement, PageProps>(({ image, text, side, hasText, textSide, textVertical }, ref) => {
   // Show text only on the correct side
   const showText = hasText && side === textSide
+
+  // Vertical alignment classes
+  const verticalAlignClass = {
+    top: 'items-start pt-4 sm:pt-6 md:pt-8 lg:pt-12',
+    center: 'items-center',
+    bottom: 'items-end pb-4 sm:pb-6 md:pb-8 lg:pb-12',
+  }[textVertical]
 
   return (
     <div ref={ref} className="page relative w-full h-full overflow-hidden" data-density="hard">
@@ -117,15 +138,15 @@ const Page = forwardRef<HTMLDivElement, PageProps>(({ image, text, side, hasText
       {/* Text overlay - only on the designated side */}
       {showText && text && (
         <div
-          className={`absolute inset-0 flex items-center ${
+          className={`absolute inset-0 flex ${verticalAlignClass} ${
             textSide === 'left'
               ? 'justify-start bg-gradient-to-r from-black/50 via-black/30 to-transparent'
               : 'justify-end bg-gradient-to-l from-black/50 via-black/30 to-transparent'
           }`}
         >
-          <div className="w-full p-4 lg:p-6 md:p-8">
+          <div className="w-full p-2 sm:p-4 md:p-6 lg:p-8">
             <p
-              className="text-white text-sm lg:text-base md:text-lg font-serif leading-relaxed drop-shadow-lg"
+              className="text-white text-xs sm:text-sm md:text-base lg:text-xl xl:text-3xl font-serif leading-relaxed drop-shadow-lg"
               style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)' }}
               dangerouslySetInnerHTML={{ __html: text }}
             />
@@ -156,6 +177,7 @@ const generatePages = () => {
     side: 'left' | 'right'
     hasText: boolean
     textSide: 'left' | 'right'
+    textVertical: 'top' | 'center' | 'bottom'
     slideIndex: number
   }> = []
 
@@ -167,6 +189,7 @@ const generatePages = () => {
       side: 'left',
       hasText: true,
       textSide: slide.horizontal,
+      textVertical: slide.vertical,
       slideIndex: index,
     })
     // Right page of the spread
@@ -176,6 +199,7 @@ const generatePages = () => {
       side: 'right',
       hasText: true,
       textSide: slide.horizontal,
+      textVertical: slide.vertical,
       slideIndex: index,
     })
   })
@@ -194,6 +218,7 @@ export default function StorySection() {
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
+  const [audioProgress, setAudioProgress] = useState(0)
 
   // Stop any currently playing audio
   const stopAudio = useCallback(() => {
@@ -202,6 +227,7 @@ export default function StorySection() {
       audioRef.current.currentTime = 0
       audioRef.current = null
     }
+    setAudioProgress(0)
   }, [])
 
   // Play audio for a specific slide (always stops current audio first)
@@ -275,6 +301,19 @@ export default function StorySection() {
       }
     }
   }, [])
+
+  // Track audio progress
+  useEffect(() => {
+    const updateProgress = () => {
+      if (audioRef.current && audioRef.current.duration) {
+        const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
+        setAudioProgress(progress)
+      }
+    }
+
+    const interval = setInterval(updateProgress, 50)
+    return () => clearInterval(interval)
+  }, [isPlaying])
 
   // Track fullscreen state and scroll back when exiting
   useEffect(() => {
@@ -462,23 +501,50 @@ export default function StorySection() {
                   side={page.side}
                   hasText={page.hasText}
                   textSide={page.textSide}
+                  textVertical={page.textVertical}
                 />
               ))}
             </HTMLFlipBook>
 
-          {/* Play/Pause button - bottom left */}
+          {/* Play/Pause button with progress indicator - bottom left */}
           <button
             onClick={togglePlayPause}
-            className="absolute bottom-3 left-3 z-50 w-12 h-12 rounded-full bg-black/40 backdrop-blur-sm text-white/80 hover:bg-black/60 transition-colors flex items-center justify-center"
+            className="absolute bottom-3 left-3 z-50 w-12 h-12 rounded-full bg-black/40 backdrop-blur-sm text-white/80 hover:bg-black/60 transition-colors flex items-center justify-center cursor-pointer"
             aria-label={isPlaying ? 'Pause' : 'Abspielen'}
           >
+            {/* Progress ring */}
+            <svg className="absolute w-12 h-12 -rotate-90" viewBox="0 0 48 48">
+              {/* Background circle */}
+              <circle
+                cx="24"
+                cy="24"
+                r="22"
+                fill="none"
+                stroke="rgba(255,255,255,0.2)"
+                strokeWidth="3"
+              />
+              {/* Progress circle */}
+              <circle
+                cx="24"
+                cy="24"
+                r="22"
+                fill="none"
+                stroke="rgba(255,255,255,0.8)"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeDasharray={2 * Math.PI * 22}
+                strokeDashoffset={2 * Math.PI * 22 * (1 - audioProgress / 100)}
+                className="transition-[stroke-dashoffset] duration-100"
+              />
+            </svg>
+            {/* Play/Pause icon */}
             {isPlaying ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 relative z-10" viewBox="0 0 24 24" fill="currentColor">
                 <rect x="6" y="4" width="4" height="16" />
                 <rect x="14" y="4" width="4" height="16" />
               </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 relative z-10" viewBox="0 0 24 24" fill="currentColor">
                 <polygon points="5 3 19 12 5 21 5 3" />
               </svg>
             )}
@@ -509,7 +575,7 @@ export default function StorySection() {
                 }
               }
             }}
-            className="absolute bottom-3 right-3 z-50 w-12 h-12 rounded-full bg-black/40 backdrop-blur-sm text-white/80 hover:bg-black/60 transition-colors flex items-center justify-center"
+            className="absolute bottom-3 right-3 z-50 w-12 h-12 rounded-full bg-black/40 backdrop-blur-sm text-white/80 hover:bg-black/60 transition-colors flex items-center justify-center cursor-pointer"
             aria-label={isFullscreen ? 'Vollbild beenden' : 'Vollbild'}
           >
             {isFullscreen ? (
