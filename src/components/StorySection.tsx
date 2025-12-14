@@ -80,7 +80,7 @@ const Page = forwardRef<HTMLDivElement, PageProps>(({ image, text, side, hasText
   const showText = hasText && side === textSide
 
   return (
-    <div ref={ref} className="page relative w-full h-full overflow-hidden">
+    <div ref={ref} className="page relative w-full h-full overflow-hidden" data-density="hard">
       {/* Background image - positioned to show correct half */}
       <div
         className="absolute inset-0"
@@ -115,6 +115,16 @@ const Page = forwardRef<HTMLDivElement, PageProps>(({ image, text, side, hasText
           </div>
         </div>
       )}
+
+      {/* Inset shadow for book spine effect - moves with the page during animation */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          boxShadow: side === 'left'
+            ? 'inset -60px 0 60px -30px rgba(0,0,0,0.7)'
+            : 'inset 60px 0 60px -30px rgba(0,0,0,0.7)'
+        }}
+      />
     </div>
   )
 })
@@ -188,16 +198,28 @@ export default function StorySection() {
   }, [])
 
   const goToNext = useCallback(() => {
-    if (bookRef.current) {
+    if (currentPage >= slides.length - 1) {
+      // On last page, scroll to next section
+      const nextSection = document.getElementById('story')?.nextElementSibling
+      if (nextSection) {
+        nextSection.scrollIntoView({ behavior: 'smooth' })
+      }
+    } else if (bookRef.current) {
       bookRef.current.pageFlip().flipNext()
     }
-  }, [])
+  }, [currentPage])
 
   const goToPrevious = useCallback(() => {
-    if (bookRef.current) {
+    if (currentPage <= 0) {
+      // On first page, scroll to previous section
+      const prevSection = document.getElementById('story')?.previousElementSibling
+      if (prevSection) {
+        prevSection.scrollIntoView({ behavior: 'smooth' })
+      }
+    } else if (bookRef.current) {
       bookRef.current.pageFlip().flipPrev()
     }
-  }, [])
+  }, [currentPage])
 
   // Convert slide index to page index (each slide = 2 pages)
   const goToSlide = useCallback((slideIndex: number) => {
@@ -231,11 +253,19 @@ export default function StorySection() {
   }, [goToSlide])
 
   return (
-    <section id="story" className="bg-amber-950 w-full min-h-dvh py-8 flex items-center justify-center">
+    <section id="story" className="bg-amber-950 w-full min-h-dvh pt-16 pb-0 flex items-center justify-center">
       <div className="w-full max-w-7xl mx-auto px-4">
         {/* Book container */}
         <div className="flex justify-center">
-          <div style={{ boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4)' }}>
+          <div className="relative" style={{ boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4)' }}>
+            {/* Buchrücken - mittige Linie */}
+            <div
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-full pointer-events-none z-10"
+              style={{
+                background: 'linear-gradient(to right, rgba(0,0,0,0.05), rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.05))',
+                boxShadow: '-2px 0 8px rgba(0,0,0,0.1), 2px 0 8px rgba(0,0,0,0.1)'
+              }}
+            />
             {/* @ts-expect-error - react-pageflip types are incomplete */}
             <HTMLFlipBook
               ref={bookRef}
@@ -275,27 +305,30 @@ export default function StorySection() {
           </div>
         </div>
 
-        {/* Page indicators */}
-        <div className="flex justify-center mt-4 sm:mt-6 gap-1.5 sm:gap-2">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                index === currentPage
-                  ? 'bg-amber-200 w-6'
-                  : 'bg-amber-700/50 hover:bg-amber-600/50 w-2'
-              }`}
-              aria-label={`Gehe zu Seite ${index + 1}`}
-            />
-          ))}
-        </div>
-
-        {/* Navigation buttons */}
-        <div className="flex justify-center gap-4 mt-4 sm:mt-6">
+        {/* Page indicators with navigation buttons - aligned to book width */}
+        <div
+          className="flex justify-between items-center mt-4 sm:mt-6 mx-auto"
+          style={{ width: dimensions.width * 2 }}
+        >
           <ShadowButton onClick={goToPrevious} className="min-w-24">
             Zurück
           </ShadowButton>
+
+          <div className="flex gap-1.5 sm:gap-2">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  index === currentPage
+                    ? 'bg-amber-200 w-6'
+                    : 'bg-amber-700/50 hover:bg-amber-600/50 w-2'
+                }`}
+                aria-label={`Gehe zu Seite ${index + 1}`}
+              />
+            ))}
+          </div>
+
           <ShadowButton onClick={goToNext} className="min-w-24">
             Weiter
           </ShadowButton>
