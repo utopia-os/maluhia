@@ -192,7 +192,7 @@ export default function StorySection() {
   const [currentPage, setCurrentPage] = useState(0)
   const [dimensions, setDimensions] = useState({ width: 600, height: 400 })
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200)
-  const [audioEnabled, setAudioEnabled] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
 
   // Stop any currently playing audio
   const stopAudio = useCallback(() => {
@@ -204,35 +204,66 @@ export default function StorySection() {
   }, [])
 
   // Play audio for a specific slide (always stops current audio first)
-  const playAudioForSlide = useCallback((slideIndex: number, forcePlay = false) => {
+  const playAudioForSlide = useCallback((slideIndex: number) => {
     // Always stop current audio first
     stopAudio()
 
-    // Only play if audio is enabled (or forced when toggling on)
-    if (!audioEnabled && !forcePlay) return
+    // Only play if playing is enabled
+    if (!isPlaying) return
 
     const slide = slides[slideIndex]
     if (!slide?.audio) return
 
     // Create and play new audio
     audioRef.current = new Audio(slide.audio)
+
+    // Auto-advance to next page when audio ends
+    audioRef.current.onended = () => {
+      if (slideIndex < slides.length - 1 && bookRef.current) {
+        bookRef.current.pageFlip().flipNext()
+      } else {
+        // Last page finished - stop playing
+        setIsPlaying(false)
+      }
+    }
+
     audioRef.current.play().catch(() => {
       // Ignore autoplay errors
     })
-  }, [audioEnabled, stopAudio])
+  }, [isPlaying, stopAudio])
 
-  // Toggle audio on/off
-  const toggleAudio = useCallback(() => {
-    if (audioEnabled) {
-      // Turning off - stop audio
-      stopAudio()
-      setAudioEnabled(false)
+  // Toggle play/pause
+  const togglePlayPause = useCallback(() => {
+    if (isPlaying) {
+      // Pause
+      if (audioRef.current) {
+        audioRef.current.pause()
+      }
+      setIsPlaying(false)
     } else {
-      // Turning on - start playing current page
-      setAudioEnabled(true)
-      playAudioForSlide(currentPage, true)
+      // Play
+      setIsPlaying(true)
+      // If there's a paused audio, resume it
+      if (audioRef.current && audioRef.current.paused && audioRef.current.currentTime > 0) {
+        audioRef.current.play().catch(() => {})
+      } else {
+        // Start fresh for current page
+        const slide = slides[currentPage]
+        if (slide?.audio) {
+          stopAudio()
+          audioRef.current = new Audio(slide.audio)
+          audioRef.current.onended = () => {
+            if (currentPage < slides.length - 1 && bookRef.current) {
+              bookRef.current.pageFlip().flipNext()
+            } else {
+              setIsPlaying(false)
+            }
+          }
+          audioRef.current.play().catch(() => {})
+        }
+      }
     }
-  }, [audioEnabled, currentPage, playAudioForSlide, stopAudio])
+  }, [isPlaying, currentPage, stopAudio])
 
   // Cleanup audio on unmount
   useEffect(() => {
@@ -241,6 +272,24 @@ export default function StorySection() {
         audioRef.current.pause()
         audioRef.current = null
       }
+    }
+  }, [])
+
+  // Scroll back to story section when exiting fullscreen
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement) {
+        // Exited fullscreen - scroll back to story section
+        const section = document.getElementById('story')
+        if (section) {
+          section.scrollIntoView({ behavior: 'instant' })
+        }
+      }
+    }
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange)
     }
   }, [])
 
@@ -398,7 +447,7 @@ export default function StorySection() {
               useMouseEvents={true}
               swipeDistance={30}
               clickEventForward={true}
-              showPageCorners={true}
+              showPageCorners={false}
               disableFlipByClick={false}
             >
               {pages.map((page, index) => (
@@ -413,30 +462,48 @@ export default function StorySection() {
               ))}
             </HTMLFlipBook>
 
+          {/* Play/Pause button - bottom left */}
+          <button
+            onClick={togglePlayPause}
+            className="absolute bottom-3 left-3 z-50 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm text-white/80 hover:bg-black/60 transition-colors flex items-center justify-center"
+            aria-label={isPlaying ? 'Pause' : 'Abspielen'}
+          >
+            {isPlaying ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="6" y="4" width="4" height="16" />
+                <rect x="14" y="4" width="4" height="16" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+            )}
+          </button>
+
           {/* Page number display - center bottom */}
           <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-50 px-3 py-1 rounded-full bg-black/40 backdrop-blur-sm text-white/80 text-xs font-serif">
             {currentPage + 1} / {slides.length}
           </div>
 
-          {/* Audio toggle - bottom right */}
+          {/* Fullscreen button - bottom right */}
           <button
-            onClick={toggleAudio}
+            onClick={() => {
+              const section = document.getElementById('story')
+              if (document.fullscreenElement) {
+                document.exitFullscreen()
+              } else {
+                section?.requestFullscreen()
+              }
+            }}
             className="absolute bottom-3 right-3 z-50 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm text-white/80 hover:bg-black/60 transition-colors flex items-center justify-center"
-            aria-label={audioEnabled ? 'Ton ausschalten' : 'Ton einschalten'}
+            aria-label="Vollbild"
           >
-            {audioEnabled ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-                <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                <line x1="23" y1="9" x2="17" y2="15" />
-                <line x1="17" y1="9" x2="23" y2="15" />
-              </svg>
-            )}
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 3 21 3 21 9" />
+              <polyline points="9 21 3 21 3 15" />
+              <line x1="21" y1="3" x2="14" y2="10" />
+              <line x1="3" y1="21" x2="10" y2="14" />
+            </svg>
           </button>
         </div>
 
