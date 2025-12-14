@@ -13,7 +13,8 @@
     "@ttanton/animated-turtle": "^1.0.8",
     "framer-motion": "^12.23.24",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "react-pageflip": "^2.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

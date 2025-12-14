@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useCallback, useRef, forwardRef, useEffect, useState } from 'react'
+import HTMLFlipBook from 'react-pageflip'
 import ShadowButton from './ShadowButton'
 import { useGlobalKeyboardNavigation } from '../hooks/useGlobalKeyboardNavigation'
 
@@ -6,137 +7,214 @@ const slides = [
   {
     image: `${import.meta.env.BASE_URL}story/1.png`,
     text: 'In den Tiefen des weiten Ozeans lebte vor langer, langer Zeit die Honu, die alte Meeresschildkröte. Langsam und leise glitt sie durch das Wasser, so still, dass selbst die Wellen innehielten, um ihr zuzusehen.',
-    horizontal: 'left', // 'left' | 'center' | 'right'
-    vertical: 'top' // 'top' | 'center' | 'bottom'
+    horizontal: 'left' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/23.png`,
     text: 'Die Honu trug auf ihrem Panzer das Symbol von Maluhia (Frieden) das in uns wächst und sich ausbreitet – von Herz zu Herz, wie eine Welle. Man sagt in diesem kraftvollen Zeichen, sei die Erinnerung der Welt verborgen – die Lieder der Ahnen, die Wege der Sterne, das Flüstern der Erde.',
-    horizontal: 'right',
-    vertical: 'bottom'
+    horizontal: 'right' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/3.png`,
     text: 'Die uralte Schildkröte liebte ihren blauen Planeten sehr: die Felsen, das Wasser, die Pflanzen, die Tiere … Vor allem liebte sie die Menschen, denn aus den Augen ihrer Kinder lächelte die Liebe des unendlichen Weltengeistes.',
-    horizontal: 'left',
-    vertical: 'bottom'
+    horizontal: 'left' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/4.png`,
     text: 'Doch eines Nachts kam der große Schatten und legte sich in die Herzen der Menschen. Erschrocken sah Honu, dass die Menschen immer unglücklicher wurden, sodass sie ihren Planeten zu hassen begannen und einander mit immer grausameren Kriegen quälten.',
-    horizontal: 'right',
-    vertical: 'bottom'
+    horizontal: 'right' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/5.png`,
     text: 'Da beschloss die Honu, zu allen Ufern der Erde zu schwimmen und den Menschen das Licht zurückzubringen. Sie schwamm Tag für Tag, Nacht für Nacht, Jahr für Jahr. Sie überquerte Ozeane, sah die Strände vieler Länder, und überall, wo sie vorbeikam, hinterließ sie eine Spur aus Licht.',
-    horizontal: 'left',
-    vertical: 'top'
+    horizontal: 'left' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/6.jpg`,
     text: 'Dieses Licht verband die Küsten miteinander – so wie Kinder ihre Hände halten, wenn sie einen Kreis bilden. Und so wurden die Menschen, die Tiere, die Bäume und die Flüsse wieder miteinander verbunden – durch das sanfte Leuchten der Honu.',
-    horizontal: 'right',
-    vertical: 'top'
+    horizontal: 'right' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/7.jpg`,
     text: 'Manchmal, wenn Stürme tobten und die Wellen hochschlugen, blieb die Honu ganz ruhig. Sie wusste: Frieden entsteht nicht durch Eile, sondern durch Geduld. „Aloha", flüsterte sie in den Wind – und der Wind brachte Liebe und Mitgefühl zu den Herzen der Menschen.',
-    horizontal: 'left',
-    vertical: 'bottom'
+    horizontal: 'left' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/8.jpg`,
     text: 'Wenn die Honu Inseln erreichte, erinnerte sie die Menschen an Lokahi – die Harmonie, die entsteht, wenn alle zusammenstehen wie die Wellen am Ufer. Und wenn sie weiterzog, hinterließ sie das Geschenk von Pono – das Gleichgewicht, das wie eine Waage den Frieden trägt.',
-    horizontal: 'right',
-    vertical: 'top'
+    horizontal: 'right' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/9.jpg`,
     text: 'Und wenn Herzen schwer wurden, wenn Streit oder Kummer die Menschen trennten, dann schwamm die Honu nah an den Strand. Ihr Atem war tief und warm, und er duftete nach Hoʻoponopono: nach Vergebung, nach Wieder-Heilwerden, nach Zurückfinden zueinander.',
-    horizontal: 'left',
-    vertical: 'bottom'
+    horizontal: 'left' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/10.jpg`,
     text: 'So wurde die Honu zur Hüterin des Friedens. Sie schwamm von Kontinent zu Kontinent, von Volk zu Volk, und überall, wo sie ankam, öffneten sich die Herzen der Menschen. Sie begannen, ihr eigenes Licht zu entzünden – ein kleines Feuer des Friedens, das in der Dunkelheit leuchtete.',
-    horizontal: 'right',
-    vertical: 'top'
+    horizontal: 'right' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/11.jpg`,
     text: 'Eines Tages, so erzählt man, werden all diese Lichter zusammenfinden – wie die Sterne am Himmel zu einem einzigen großen Ozean. Dann wird die Erde selbst leuchten, so hell wie die Sonne, und jeder Mensch wird wissen: Wir sind verbunden. Wir sind eins.',
-    horizontal: 'left',
-    vertical: 'bottom'
+    horizontal: 'left' as const,
   },
   {
     image: `${import.meta.env.BASE_URL}story/12.jpg`,
     text: 'Und noch heute, wenn du am Meer stehst und die Wellen beobachtest, kannst du sie vielleicht sehen – die Honu, wie sie ruhig und still vorbeigleitet. Und wenn du genau hinhörst, dann hörst du vielleicht ihr Lied: Das Lied vom Frieden. Das Lied von Maluhia.',
-    horizontal: 'right',
-    vertical: 'top'
+    horizontal: 'right' as const,
   }
 ]
 
+// Page component for half of a spread - must use forwardRef for react-pageflip
+interface PageProps {
+  image: string
+  text?: string
+  side: 'left' | 'right'
+  hasText: boolean
+  textSide: 'left' | 'right'
+}
+
+const Page = forwardRef<HTMLDivElement, PageProps>(({ image, text, side, hasText, textSide }, ref) => {
+  // Show text only on the correct side
+  const showText = hasText && side === textSide
+
+  return (
+    <div ref={ref} className="page relative w-full h-full overflow-hidden">
+      {/* Background image - positioned to show correct half */}
+      <div
+        className="absolute inset-0"
+        style={{
+          width: '200%',
+          height: '100%',
+          left: side === 'left' ? '0' : '-100%',
+        }}
+      >
+        <img
+          src={image}
+          alt=""
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      {/* Text overlay - only on the designated side */}
+      {showText && text && (
+        <div
+          className={`absolute inset-0 flex items-center ${
+            textSide === 'left'
+              ? 'justify-start bg-gradient-to-r from-black/50 via-black/30 to-transparent'
+              : 'justify-end bg-gradient-to-l from-black/50 via-black/30 to-transparent'
+          }`}
+        >
+          <div className="w-full p-4 sm:p-6 md:p-8">
+            <p
+              className="text-white text-sm sm:text-base md:text-lg font-serif leading-relaxed drop-shadow-lg"
+              style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)' }}
+              dangerouslySetInnerHTML={{ __html: text }}
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  )
+})
+
+Page.displayName = 'Page'
+
+// Generate page pairs from slides (each slide becomes left + right page)
+const generatePages = () => {
+  const pages: Array<{
+    image: string
+    text?: string
+    side: 'left' | 'right'
+    hasText: boolean
+    textSide: 'left' | 'right'
+    slideIndex: number
+  }> = []
+
+  slides.forEach((slide, index) => {
+    // Left page of the spread
+    pages.push({
+      image: slide.image,
+      text: slide.text,
+      side: 'left',
+      hasText: true,
+      textSide: slide.horizontal,
+      slideIndex: index,
+    })
+    // Right page of the spread
+    pages.push({
+      image: slide.image,
+      text: slide.text,
+      side: 'right',
+      hasText: true,
+      textSide: slide.horizontal,
+      slideIndex: index,
+    })
+  })
+
+  return pages
+}
+
+const pages = generatePages()
+
 export default function StorySection() {
-  const [currentSlide, setCurrentSlide] = useState(0)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const bookRef = useRef<any>(null)
+  const [currentPage, setCurrentPage] = useState(0)
+  const [dimensions, setDimensions] = useState({ width: 600, height: 400 })
 
-  // Synchronize currentSlide with actual scroll position
+  // Calculate book dimensions based on container
   useEffect(() => {
-    const carousel = document.querySelector('.carousel')
-    if (!carousel) return
+    const updateDimensions = () => {
+      const maxWidth = Math.min(window.innerWidth - 32, 1200) // 32px padding
+      const maxHeight = window.innerHeight * 0.7
 
-    const handleScroll = () => {
-      const scrollLeft = carousel.scrollLeft
-      const slideWidth = carousel.clientWidth
-      const newSlide = Math.round(scrollLeft / slideWidth)
-      if (newSlide !== currentSlide && newSlide >= 0 && newSlide < slides.length) {
-        setCurrentSlide(newSlide)
+      // 2:1 aspect ratio for double page spread, so each page is 1:1
+      let width = maxWidth / 2
+      let height = width
+
+      if (height > maxHeight) {
+        height = maxHeight
+        width = height
       }
+
+      setDimensions({ width: Math.floor(width), height: Math.floor(height) })
     }
 
-    carousel.addEventListener('scroll', handleScroll)
-    return () => carousel.removeEventListener('scroll', handleScroll)
-  }, [currentSlide])
-
-  const goToPrevious = useCallback((e?: React.MouseEvent) => {
-    e?.preventDefault()
-    if (currentSlide === 0) {
-      // Bei der ersten Slide zur Hero-Sektion scrollen
-      const heroSection = document.getElementById('home')
-      if (heroSection) {
-        heroSection.scrollIntoView({ behavior: 'smooth' })
-      }
-    } else {
-      const prevSlide = currentSlide - 1
-      setCurrentSlide(prevSlide)
-      document.getElementById(`slide${prevSlide + 1}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
-    }
-  }, [currentSlide])
-
-  const goToNext = useCallback((e?: React.MouseEvent) => {
-    e?.preventDefault()
-    if (currentSlide === slides.length - 1) {
-      // Bei der letzten Slide zur nächsten Sektion scrollen
-      const joinSection = document.getElementById('join')
-      if (joinSection) {
-        joinSection.scrollIntoView({ behavior: 'smooth' })
-      }
-    } else {
-      const nextSlide = currentSlide + 1
-      setCurrentSlide(nextSlide)
-      document.getElementById(`slide${nextSlide + 1}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
-    }
-  }, [currentSlide])
-
-  const goToSlide = useCallback((index: number) => {
-    setCurrentSlide(index)
-    document.getElementById(`slide${index + 1}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+    updateDimensions()
+    window.addEventListener('resize', updateDimensions)
+    return () => window.removeEventListener('resize', updateDimensions)
   }, [])
 
-  // Global keyboard navigation
+  const goToNext = useCallback(() => {
+    if (bookRef.current) {
+      bookRef.current.pageFlip().flipNext()
+    }
+  }, [])
+
+  const goToPrevious = useCallback(() => {
+    if (bookRef.current) {
+      bookRef.current.pageFlip().flipPrev()
+    }
+  }, [])
+
+  // Convert slide index to page index (each slide = 2 pages)
+  const goToSlide = useCallback((slideIndex: number) => {
+    if (bookRef.current) {
+      // Each slide consists of 2 pages (left + right), so multiply by 2
+      bookRef.current.pageFlip().flip(slideIndex * 2)
+    }
+  }, [])
+
+  const onFlip = useCallback((e: { data: number }) => {
+    // Convert page index back to slide index
+    setCurrentPage(Math.floor(e.data / 2))
+  }, [])
+
   useGlobalKeyboardNavigation({
     story: {
-      currentSlide,
+      currentSlide: currentPage,
       totalSlides: slides.length,
       goToSlide,
       goToPrevious,
@@ -144,83 +222,83 @@ export default function StorySection() {
     }
   })
 
-  // Listen for navbar clicks to reset to first slide
   useEffect(() => {
     const handleResetStory = () => {
       goToSlide(0)
     }
-
     window.addEventListener('resetStory', handleResetStory as EventListener)
     return () => window.removeEventListener('resetStory', handleResetStory as EventListener)
   }, [goToSlide])
 
   return (
-    <section className="bg-black w-full h-dvh relative">
-      <div className="w-full h-full">
-        <div className="flex items-center h-full relative">
-          {/* Previous button - always visible on desktop */}
-          <ShadowButton
-            onClick={goToPrevious}
-            className="shrink-0 hidden sm:flex absolute left-8 bottom-8 z-20 min-w-20"
-          >
+    <section id="story" className="bg-amber-950 w-full min-h-dvh py-8 flex items-center justify-center">
+      <div className="w-full max-w-7xl mx-auto px-4">
+        {/* Book container */}
+        <div className="flex justify-center">
+          <div style={{ boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4)' }}>
+            {/* @ts-expect-error - react-pageflip types are incomplete */}
+            <HTMLFlipBook
+              ref={bookRef}
+              width={dimensions.width}
+              height={dimensions.height}
+              size="fixed"
+              minWidth={300}
+              maxWidth={600}
+              minHeight={300}
+              maxHeight={600}
+              showCover={false}
+              mobileScrollSupport={true}
+              onFlip={onFlip}
+              className="book"
+              flippingTime={1000}
+              usePortrait={false}
+              startPage={0}
+              drawShadow={true}
+              maxShadowOpacity={0.5}
+              useMouseEvents={true}
+              swipeDistance={30}
+              clickEventForward={true}
+              showPageCorners={true}
+              disableFlipByClick={false}
+            >
+              {pages.map((page, index) => (
+                <Page
+                  key={index}
+                  image={page.image}
+                  text={page.text}
+                  side={page.side}
+                  hasText={page.hasText}
+                  textSide={page.textSide}
+                />
+              ))}
+            </HTMLFlipBook>
+          </div>
+        </div>
+
+        {/* Page indicators */}
+        <div className="flex justify-center mt-4 sm:mt-6 gap-1.5 sm:gap-2">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === currentPage
+                  ? 'bg-amber-200 w-6'
+                  : 'bg-amber-700/50 hover:bg-amber-600/50 w-2'
+              }`}
+              aria-label={`Gehe zu Seite ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Navigation buttons */}
+        <div className="flex justify-center gap-4 mt-4 sm:mt-6">
+          <ShadowButton onClick={goToPrevious} className="min-w-24">
             Zurück
           </ShadowButton>
-
-          {/* Carousel */}
-          <div className="carousel w-full h-full">
-            {slides.map((slide, index) => (
-              <div
-                key={index}
-                id={`slide${index + 1}`}
-                className="carousel-item relative w-full"
-              >
-                <div className="w-full relative">
-                  <img
-                    src={slide.image}
-                    className="w-full h-full object-cover"
-                    alt={`Slide ${index + 1}`}
-                  />
-                  <div className={`absolute inset-0 flex
-                    ${slide.horizontal === 'left' ? 'justify-start' : slide.horizontal === 'right' ? 'justify-end' : 'justify-center'}
-                    ${slide.vertical === 'top' ? 'items-start' : slide.vertical === 'bottom' ? 'items-end' : 'items-center'}
-                  `}>
-                    <p
-                      className={`text-white text-2xl font-semibold px-8 max-w-xl
-                        ${slide.vertical === 'bottom' ? 'pb-28 sm:pb-28' : slide.vertical === 'top' ? 'pt-20 sm:pt-20' : ''}
-                        ${slide.horizontal === 'left' ? 'text-left' : slide.horizontal === 'right' ? 'text-left' : 'text-center'}
-                      `}
-                      style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)' }}
-                      dangerouslySetInnerHTML={{ __html: slide.text }}
-                    />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Next button - hidden on mobile */}  
-          <ShadowButton
-            onClick={goToNext}
-            className="shrink-0 hidden sm:flex absolute right-8 bottom-8 z-20 min-w-20"
-          >
-           Weiter
+          <ShadowButton onClick={goToNext} className="min-w-24">
+            Weiter
           </ShadowButton>
-
-          {/* Mobile navigation buttons - absolute positioned over carousel */}
-          <div className="absolute bottom-4 left-0 right-0 flex items-center justify-between px-4 sm:hidden z-10">
-            <ShadowButton
-              onClick={goToPrevious}
-              className="min-w-20"
-            >
-              Zurück
-            </ShadowButton>
-            <ShadowButton
-              onClick={goToNext}
-              className="min-w-20"
-            >
-              Weiter
-            </ShadowButton>
-          </div>
         </div>
       </div>
     </section>
