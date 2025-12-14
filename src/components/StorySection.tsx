@@ -1,6 +1,5 @@
 import { useCallback, useRef, forwardRef, useEffect, useState } from 'react'
 import HTMLFlipBook from 'react-pageflip'
-import ShadowButton from './ShadowButton'
 import { useGlobalKeyboardNavigation } from '../hooks/useGlobalKeyboardNavigation'
 
 const slides = [
@@ -173,12 +172,17 @@ export default function StorySection() {
   const bookRef = useRef<any>(null)
   const [currentPage, setCurrentPage] = useState(0)
   const [dimensions, setDimensions] = useState({ width: 600, height: 400 })
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200)
 
   // Calculate book dimensions based on container
   useEffect(() => {
     const updateDimensions = () => {
-      const maxWidth = Math.min(window.innerWidth - 32, 1200) // 32px padding
-      const maxHeight = window.innerHeight * 0.7
+      const isMobile = window.innerWidth < 900
+      // Mobile: minimal padding, Desktop: more breathing room
+      const horizontalPadding = isMobile ? 16 : 80
+      const maxWidth = window.innerWidth - horizontalPadding
+      // Mobile: use more vertical space, Desktop: leave room for navbar
+      const maxHeight = isMobile ? window.innerHeight * 0.95 : window.innerHeight * 0.8
 
       // 2:1 aspect ratio for double page spread, so each page is 1:1
       let width = maxWidth / 2
@@ -190,11 +194,20 @@ export default function StorySection() {
       }
 
       setDimensions({ width: Math.floor(width), height: Math.floor(height) })
+      setWindowWidth(window.innerWidth)
     }
 
     updateDimensions()
     window.addEventListener('resize', updateDimensions)
-    return () => window.removeEventListener('resize', updateDimensions)
+    window.addEventListener('orientationchange', updateDimensions)
+    // Also listen for visual viewport changes (more reliable on mobile)
+    window.visualViewport?.addEventListener('resize', updateDimensions)
+
+    return () => {
+      window.removeEventListener('resize', updateDimensions)
+      window.removeEventListener('orientationchange', updateDimensions)
+      window.visualViewport?.removeEventListener('resize', updateDimensions)
+    }
   }, [])
 
   const goToNext = useCallback(() => {
@@ -252,12 +265,35 @@ export default function StorySection() {
     return () => window.removeEventListener('resetStory', handleResetStory as EventListener)
   }, [goToSlide])
 
+  // Calculate button positions - 16px from book edge, or with min margin from screen edge if not enough space
+  const bookWidth = dimensions.width * 2
+  const buttonSize = 48
+  const minScreenMargin = 8
+  const gapFromBook = 16
+  const remainingSpace = (windowWidth - bookWidth) / 2
+  // Ideal position: gapFromBook pixels from book edge
+  // If not enough space, position minScreenMargin from screen edge (button may overlap book)
+  const idealButtonDistance = buttonSize + gapFromBook
+  const buttonOffset = remainingSpace >= idealButtonDistance + minScreenMargin
+    ? gapFromBook
+    : remainingSpace - buttonSize - minScreenMargin
+
   return (
-    <section id="story" className="bg-amber-950 w-full min-h-dvh pt-16 pb-0 flex items-center justify-center">
-      <div className="w-full max-w-7xl mx-auto px-4">
-        {/* Book container */}
-        <div className="flex justify-center">
-          <div className="relative" style={{ boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4)' }}>
+    <section id="story" className="w-full min-h-dvh flex items-center justify-center">
+      <div className="relative flex items-center justify-center">
+        {/* Previous button - positioned dynamically */}
+        <button
+          onClick={goToPrevious}
+          className="absolute top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-[#F6CF6B] text-[#564722] shadow-[0_6px_0_0_#E37039] hover:shadow-[0_8px_0_0_#E37039] active:shadow-[0_4px_0_0_#E37039] active:translate-y-[calc(-50%+4px)] transition-all duration-150 flex items-center justify-center"
+          style={{ left: `calc(50% - ${bookWidth / 2 + buttonSize + buttonOffset}px)` }}
+          aria-label="Vorherige Seite"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+
+        <div className="relative" style={{ boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4)' }}>
             {/* Buchrücken - mittige Linie */}
             <div
               className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-full pointer-events-none z-10"
@@ -266,23 +302,25 @@ export default function StorySection() {
                 boxShadow: '-2px 0 8px rgba(0,0,0,0.1), 2px 0 8px rgba(0,0,0,0.1)'
               }}
             />
+
             {/* @ts-expect-error - react-pageflip types are incomplete */}
             <HTMLFlipBook
+              key={`${dimensions.width}-${dimensions.height}`}
               ref={bookRef}
               width={dimensions.width}
               height={dimensions.height}
               size="fixed"
-              minWidth={300}
-              maxWidth={600}
-              minHeight={300}
-              maxHeight={600}
+              minWidth={150}
+              maxWidth={1000}
+              minHeight={150}
+              maxHeight={1000}
               showCover={false}
               mobileScrollSupport={true}
               onFlip={onFlip}
               className="book"
-              flippingTime={1000}
+              flippingTime={500}
               usePortrait={false}
-              startPage={0}
+              startPage={currentPage * 2}
               drawShadow={true}
               maxShadowOpacity={0.5}
               useMouseEvents={true}
@@ -302,37 +340,24 @@ export default function StorySection() {
                 />
               ))}
             </HTMLFlipBook>
+
+          {/* Page number display - inside book */}
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-50 px-3 py-1 rounded-full bg-black/40 backdrop-blur-sm text-white/80 text-xs font-serif">
+            {currentPage + 1} / {slides.length}
           </div>
         </div>
 
-        {/* Page indicators with navigation buttons - aligned to book width */}
-        <div
-          className="flex justify-between items-center mt-4 sm:mt-6 mx-auto"
-          style={{ width: dimensions.width * 2 }}
+        {/* Next button - positioned dynamically */}
+        <button
+          onClick={goToNext}
+          className="absolute top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-[#F6CF6B] text-[#564722] shadow-[0_6px_0_0_#E37039] hover:shadow-[0_8px_0_0_#E37039] active:shadow-[0_4px_0_0_#E37039] active:translate-y-[calc(-50%+4px)] transition-all duration-150 flex items-center justify-center"
+          style={{ right: `calc(50% - ${bookWidth / 2 + buttonSize + buttonOffset}px)` }}
+          aria-label="Nächste Seite"
         >
-          <ShadowButton onClick={goToPrevious} className="min-w-24">
-            Zurück
-          </ShadowButton>
-
-          <div className="flex gap-1.5 sm:gap-2">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  index === currentPage
-                    ? 'bg-amber-200 w-6'
-                    : 'bg-amber-700/50 hover:bg-amber-600/50 w-2'
-                }`}
-                aria-label={`Gehe zu Seite ${index + 1}`}
-              />
-            ))}
-          </div>
-
-          <ShadowButton onClick={goToNext} className="min-w-24">
-            Weiter
-          </ShadowButton>
-        </div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
       </div>
     </section>
   )

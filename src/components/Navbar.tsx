@@ -123,7 +123,7 @@ export default function Navbar() {
     }, 100)
   }
 
-  const isWhiteText = activeSection === 'map' || activeSection === 'crowdfunding'
+  const isWhiteText = activeSection === 'map' || activeSection === 'crowdfunding' || activeSection === 'story'
 
   return (
     <div
