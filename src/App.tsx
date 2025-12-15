@@ -14,16 +14,11 @@ function App() {
         <div id="home" className='snap-start'>
           <HeroSection />
         </div>
+        <div className="map">
         <div id="story" className='snap-start'>
           <StorySection />
         </div>
-        <div id="join" className='snap-start'>
-          <DialogSection />
-        </div>
-        <div className="map">
-        <div id="map" className='snap-start'>
-          <MapSection />
-        </div>
+
         <div id="crowdfunding" className='snap-start'>
           <CountdownSection />
         </div>
