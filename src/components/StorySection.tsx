@@ -140,8 +140,8 @@ const Page = forwardRef<HTMLDivElement, PageProps>(({ image, text, side, hasText
         <div
           className={`absolute inset-0 flex ${verticalAlignClass} ${
             textSide === 'left'
-              ? 'justify-start bg-gradient-to-r from-black/50 via-black/30 to-transparent'
-              : 'justify-end bg-gradient-to-l from-black/50 via-black/30 to-transparent'
+              ? 'justify-start bg-linear-to-r from-black/50 via-black/30 to-transparent'
+              : 'justify-end bg-linear-to-l from-black/50 via-black/30 to-transparent'
           }`}
         >
           <div className="w-full p-2 sm:p-4 md:p-6 lg:p-8">

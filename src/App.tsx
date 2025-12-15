@@ -2,8 +2,6 @@ import './App.css'
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import StorySection from './components/StorySection'
-import DialogSection from './components/DialogSection'
-import MapSection from './components/MapSection'
 import CountdownSection from './components/CountdownSection'
 
 function App() {
