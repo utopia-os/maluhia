@@ -151,7 +151,7 @@ const Page = forwardRef<HTMLDivElement, PageProps>(({ image, text, side, hasText
           <div className="w-full p-2 sm:p-4 md:p-6 lg:p-8">
             <p
               className="text-white text-xs sm:text-sm md:text-base lg:text-xl xl:text-3xl leading-relaxed drop-shadow-lg"
-              style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)', fontFamily: '"Caveat Brush", cursive' }}
+              style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)', fontFamily: '"Comic Neue", cursive', fontWeight: 700 }}
               dangerouslySetInnerHTML={{ __html: text }}
             />
           </div>
