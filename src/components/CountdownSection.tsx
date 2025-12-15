@@ -6,7 +6,7 @@ export default function CountdownSection() {
   useGlobalKeyboardNavigation({})
 
   // Target date: December 15th, 2025 at 9:00 AM
-  const targetDate = useMemo(() => new Date('2025-12-15T09:00:00'), [])
+  const targetDate = useMemo(() => new Date('2026-02-15T09:00:00'), [])
 
   const calculateTimeLeft = () => {
     const now = new Date()
