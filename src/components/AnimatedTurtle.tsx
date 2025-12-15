@@ -22,11 +22,11 @@ export function AnimatedTurtle({ className = '', size = 128 }: AnimatedTurtlePro
       <Turtle
         scale={scale}
         images={{
-          body: `${import.meta.env.BASE_URL}turtle_body.png`,
-          head: `${import.meta.env.BASE_URL}turtle_head.png`,
-          flipperLeft: `${import.meta.env.BASE_URL}turtle_flipper_left.png`,
-          flipperRight: `${import.meta.env.BASE_URL}turtle_flipper_right.png`,
-          flipperBack: `${import.meta.env.BASE_URL}turtle_flipper_back.png`,
+          body: `${import.meta.env.BASE_URL}turtle_body.webp`,
+          head: `${import.meta.env.BASE_URL}turtle_head.webp`,
+          flipperLeft: `${import.meta.env.BASE_URL}turtle_flipper_left.webp`,
+          flipperRight: `${import.meta.env.BASE_URL}turtle_flipper_right.webp`,
+          flipperBack: `${import.meta.env.BASE_URL}turtle_flipper_back.webp`,
         }}
       />
     </div>

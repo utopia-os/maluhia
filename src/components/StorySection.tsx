@@ -4,91 +4,91 @@ import { useGlobalKeyboardNavigation } from '../hooks/useGlobalKeyboardNavigatio
 
 const slides = [
   {
-    image: `${import.meta.env.BASE_URL}story/1-1.png`,
+    image: `${import.meta.env.BASE_URL}story/1-1.webp`,
     audio: `${import.meta.env.BASE_URL}story/audio/1.mp3`,
     text: 'In den Tiefen des weiten Ozeans lebte vor langer, langer Zeit die Honu, die alte Meeresschildkröte. Langsam und leise glitt sie durch das Wasser, so still, dass selbst die Wellen innehielten, um ihr zuzusehen.',
     horizontal: 'left' as const,
     vertical: 'top' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/23.png`,
+    image: `${import.meta.env.BASE_URL}story/23.webp`,
     audio: `${import.meta.env.BASE_URL}story/audio/2.mp3`,
     text: 'Die Honu trug auf ihrem Panzer das Symbol von Maluhia (Frieden) das in uns wächst und sich ausbreitet – von Herz zu Herz, wie eine Welle. Man sagt in diesem kraftvollen Zeichen, sei die Erinnerung der Welt verborgen – die Lieder der Ahnen, die Wege der Sterne, das Flüstern der Erde.',
     horizontal: 'right' as const,
     vertical: 'bottom' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/3-1.png`,
+    image: `${import.meta.env.BASE_URL}story/3-1.webp`,
     audio: `${import.meta.env.BASE_URL}story/audio/3.mp3`,
     text: 'Die uralte Schildkröte liebte ihren blauen Planeten sehr: die Felsen, das Wasser, die Pflanzen, die Tiere … Vor allem liebte sie die Menschen, denn aus den Augen ihrer Kinder lächelte die Liebe des unendlichen Weltengeistes.',
     horizontal: 'left' as const,
     vertical: 'top' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/4.png`,
+    image: `${import.meta.env.BASE_URL}story/4.webp`,
     audio: `${import.meta.env.BASE_URL}story/audio/4.mp3`,
     text: 'Doch eines Nachts kam der große Schatten und legte sich in die Herzen der Menschen. Erschrocken sah Honu, dass die Menschen immer unglücklicher wurden, sodass sie ihren Planeten zu hassen begannen und einander mit immer grausameren Kriegen quälten.',
     horizontal: 'right' as const,
     vertical: 'bottom' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/5.png`,
+    image: `${import.meta.env.BASE_URL}story/5.webp`,
     audio: `${import.meta.env.BASE_URL}story/audio/5.mp3`,
     text: 'Da beschloss die Honu, zu allen Ufern der Erde zu schwimmen und den Menschen das Licht zurückzubringen.',
     horizontal: 'left' as const,
     vertical: 'center' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/5-1.png`,
+    image: `${import.meta.env.BASE_URL}story/5-1.webp`,
     audio: `${import.meta.env.BASE_URL}story/audio/6.mp3`,
     text: 'Sie schwamm Tag für Tag, Nacht für Nacht, Jahr für Jahr. Sie überquerte Ozeane, sah die Strände vieler Länder, und überall, wo sie vorbeikam, hinterließ sie eine Spur aus Licht. Dieses Licht verband die Küsten miteinander – so wie Kinder ihre Hände halten, wenn sie einen Kreis bilden. Und so wurden die Menschen, die Tiere, die Bäume und die Flüsse wieder miteinander verbunden – durch das sanfte Leuchten der Honu.',
     horizontal: 'left' as const,
     vertical: 'center' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/9.jpg`,
+    image: `${import.meta.env.BASE_URL}story/9.webp`,
     audio: `${import.meta.env.BASE_URL}story/audio/7.mp3`,
     text: 'Manchmal, wenn Stürme tobten und die Wellen hochschlugen, blieb die Honu ganz ruhig. Sie wusste: Frieden entsteht nicht durch Eile, sondern durch Geduld. „Aloha", flüsterte sie in den Wind – und der Wind brachte Liebe und Mitgefühl zu den Herzen der Menschen.',
     horizontal: 'right' as const,
     vertical: 'center' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/8.jpg`,
+    image: `${import.meta.env.BASE_URL}story/8.webp`,
     audio: `${import.meta.env.BASE_URL}story/audio/8.mp3`,
     text: 'Wenn die Honu Inseln erreichte, erinnerte sie die Menschen an Lokahi – die Harmonie, die entsteht, wenn alle zusammenstehen wie die Wellen am Ufer. Und wenn sie weiterzog, hinterließ sie das Geschenk von Pono – das Gleichgewicht, das wie eine Waage den Frieden trägt.',
     horizontal: 'right' as const,
     vertical: 'center' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/9.jpg`,
+    image: `${import.meta.env.BASE_URL}story/9.webp`,
     audio: `${import.meta.env.BASE_URL}story/audio/9.mp3`,
     text: 'Und wenn Herzen schwer wurden, wenn Streit oder Kummer die Menschen trennten, dann schwamm die Honu nah an den Strand. Ihr Atem war tief und warm, und er duftete nach Hoʻoponopono: nach Vergebung, nach Wieder-Heilwerden, nach Zurückfinden zueinander.',
     horizontal: 'left' as const,
     vertical: 'center' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/10.png`,
+    image: `${import.meta.env.BASE_URL}story/10.webp`,
     audio: `${import.meta.env.BASE_URL}story/audio/10.mp3`,
     text: 'So wurde die Honu zur Hüterin des Friedens. Sie schwamm von Kontinent zu Kontinent, von Volk zu Volk, und überall, wo sie ankam, öffneten sich die Herzen der Menschen.',
     horizontal: 'left' as const,
     vertical: 'center' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/10-1.png`,
+    image: `${import.meta.env.BASE_URL}story/10-1.webp`,
     audio: `${import.meta.env.BASE_URL}story/audio/11.mp3`,
     text: 'Sie begannen, ihr eigenes Licht zu entzünden – ein kleines Feuer des Friedens, das in der Dunkelheit leuchtete.',
     horizontal: 'right' as const,
     vertical: 'top' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/16.png`,
+    image: `${import.meta.env.BASE_URL}story/16.webp`,
     audio: `${import.meta.env.BASE_URL}story/audio/12.mp3`,
     text: 'Eines Tages, so erzählt man, werden all diese Lichter zusammenfinden – wie die Sterne am Himmel zu einem einzigen großen Ozean. Dann wird die Erde selbst leuchten, so hell wie die Sonne, und jeder Mensch wird wissen: Wir sind verbunden. Wir sind eins.',
     horizontal: 'left' as const,
     vertical: 'top' as const,
   },
   {
-    image: `${import.meta.env.BASE_URL}story/17.png`,
+    image: `${import.meta.env.BASE_URL}story/17.webp`,
     audio: `${import.meta.env.BASE_URL}story/audio/13.mp3`,
     text: 'Und noch heute, wenn du am Meer stehst und die Wellen beobachtest, kannst du sie vielleicht sehen – die Honu, wie sie ruhig und still vorbeigleitet. Und wenn du genau hinhörst, dann hörst du vielleicht ihr Lied: Das Lied vom Frieden. Das Lied von Maluhia.',
     horizontal: 'left' as const,
@@ -104,9 +104,10 @@ interface PageProps {
   hasText: boolean
   textSide: 'left' | 'right'
   textVertical: 'top' | 'center' | 'bottom'
+  isFirstSlide?: boolean
 }
 
-const Page = forwardRef<HTMLDivElement, PageProps>(({ image, text, side, hasText, textSide, textVertical }, ref) => {
+const Page = forwardRef<HTMLDivElement, PageProps>(({ image, text, side, hasText, textSide, textVertical, isFirstSlide }, ref) => {
   // Show text only on the correct side
   const showText = hasText && side === textSide
 
@@ -132,6 +133,9 @@ const Page = forwardRef<HTMLDivElement, PageProps>(({ image, text, side, hasText
           src={image}
           alt=""
           className="w-full h-full object-cover"
+          loading={isFirstSlide ? 'eager' : 'lazy'}
+          decoding={isFirstSlide ? 'sync' : 'async'}
+          fetchPriority={isFirstSlide ? 'high' : 'low'}
         />
       </div>
 
@@ -146,8 +150,8 @@ const Page = forwardRef<HTMLDivElement, PageProps>(({ image, text, side, hasText
         >
           <div className="w-full p-2 sm:p-4 md:p-6 lg:p-8">
             <p
-              className="text-white text-xs sm:text-sm md:text-base lg:text-xl xl:text-3xl font-serif leading-relaxed drop-shadow-lg"
-              style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)' }}
+              className="text-white text-xs sm:text-sm md:text-base lg:text-xl xl:text-3xl leading-relaxed drop-shadow-lg"
+              style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)', fontFamily: '"Caveat Brush", cursive' }}
               dangerouslySetInnerHTML={{ __html: text }}
             />
           </div>
@@ -179,9 +183,11 @@ const generatePages = () => {
     textSide: 'left' | 'right'
     textVertical: 'top' | 'center' | 'bottom'
     slideIndex: number
+    isFirstSlide: boolean
   }> = []
 
   slides.forEach((slide, index) => {
+    const isFirstSlide = index === 0
     // Left page of the spread
     pages.push({
       image: slide.image,
@@ -191,6 +197,7 @@ const generatePages = () => {
       textSide: slide.horizontal,
       textVertical: slide.vertical,
       slideIndex: index,
+      isFirstSlide,
     })
     // Right page of the spread
     pages.push({
@@ -201,6 +208,7 @@ const generatePages = () => {
       textSide: slide.horizontal,
       textVertical: slide.vertical,
       slideIndex: index,
+      isFirstSlide,
     })
   })
 
@@ -220,6 +228,7 @@ export default function StorySection() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [audioProgress, setAudioProgress] = useState(0)
+  const [isAudioLoading, setIsAudioLoading] = useState(false)
 
   // Stop any currently playing audio
   const stopAudio = useCallback(() => {
@@ -229,21 +238,41 @@ export default function StorySection() {
       audioRef.current = null
     }
     setAudioProgress(0)
+    setIsAudioLoading(false)
   }, [])
 
   // Play audio for a specific slide (always stops current audio first)
   const playAudioForSlide = useCallback((slideIndex: number) => {
-    // Always stop current audio first
-    stopAudio()
-
     // Only play if playing is enabled
-    if (!isPlaying) return
+    if (!isPlaying) {
+      stopAudio()
+      return
+    }
 
     const slide = slides[slideIndex]
-    if (!slide?.audio) return
+    if (!slide?.audio) {
+      stopAudio()
+      return
+    }
+
+    // Set loading state BEFORE stopping old audio to prevent flash of pause button
+    setIsAudioLoading(true)
+
+    // Stop current audio
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current.currentTime = 0
+      audioRef.current = null
+    }
+    setAudioProgress(0)
 
     // Create and play new audio
     audioRef.current = new Audio(slide.audio)
+
+    // When audio actually starts playing, hide loading
+    audioRef.current.onplaying = () => {
+      setIsAudioLoading(false)
+    }
 
     // Auto-advance to next page when audio ends
     audioRef.current.onended = () => {
@@ -255,8 +284,13 @@ export default function StorySection() {
       }
     }
 
+    // Handle errors
+    audioRef.current.onerror = () => {
+      setIsAudioLoading(false)
+    }
+
     audioRef.current.play().catch(() => {
-      // Ignore autoplay errors
+      setIsAudioLoading(false)
     })
   }, [isPlaying, stopAudio])
 
@@ -268,6 +302,7 @@ export default function StorySection() {
         audioRef.current.pause()
       }
       setIsPlaying(false)
+      setIsAudioLoading(false)
     } else {
       // Play
       setIsPlaying(true)
@@ -279,7 +314,11 @@ export default function StorySection() {
         const slide = slides[currentPage]
         if (slide?.audio) {
           stopAudio()
+          setIsAudioLoading(true)
           audioRef.current = new Audio(slide.audio)
+          audioRef.current.onplaying = () => {
+            setIsAudioLoading(false)
+          }
           audioRef.current.onended = () => {
             if (currentPage < slides.length - 1 && bookRef.current) {
               bookRef.current.pageFlip().flipNext()
@@ -287,7 +326,12 @@ export default function StorySection() {
               setIsPlaying(false)
             }
           }
-          audioRef.current.play().catch(() => {})
+          audioRef.current.onerror = () => {
+            setIsAudioLoading(false)
+          }
+          audioRef.current.play().catch(() => {
+            setIsAudioLoading(false)
+          })
         }
       }
     }
@@ -555,6 +599,7 @@ export default function StorySection() {
                   hasText={page.hasText}
                   textSide={page.textSide}
                   textVertical={page.textVertical}
+                  isFirstSlide={page.isFirstSlide}
                 />
               ))}
             </HTMLFlipBook>
@@ -563,7 +608,7 @@ export default function StorySection() {
           <button
             onClick={togglePlayPause}
             className="absolute bottom-3 left-3 z-50 w-12 h-12 rounded-full bg-black/40 backdrop-blur-sm text-white/80 hover:bg-black/60 transition-colors flex items-center justify-center cursor-pointer"
-            aria-label={isPlaying ? 'Pause' : 'Abspielen'}
+            aria-label={isAudioLoading ? 'Lädt...' : isPlaying ? 'Pause' : 'Abspielen'}
           >
             {/* Progress ring */}
             <svg className="absolute w-12 h-12 -rotate-90" viewBox="0 0 48 48">
@@ -590,8 +635,10 @@ export default function StorySection() {
                 className="transition-[stroke-dashoffset] duration-100"
               />
             </svg>
-            {/* Play/Pause icon */}
-            {isPlaying ? (
+            {/* Loading spinner / Play / Pause icon */}
+            {isAudioLoading ? (
+              <span className="loading loading-spinner loading-sm relative z-10" />
+            ) : isPlaying ? (
               <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 relative z-10" viewBox="0 0 24 24" fill="currentColor">
                 <rect x="6" y="4" width="4" height="16" />
                 <rect x="14" y="4" width="4" height="16" />

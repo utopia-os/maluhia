@@ -7,21 +7,21 @@ body {
 }
 
 .hero {
-  background-image: url('/bg2.jpg');
+  background-image: url('/bg2.webp');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .dialog-section {
-  background-image: url('/bg1.jpg');
+  background-image: url('/bg1.webp');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .map {
-  background-image: url('/bg3.jpg');
+  background-image: url('/bg3.webp');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
