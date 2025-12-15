@@ -8,7 +8,7 @@ import CountdownSection from './components/CountdownSection'
 
 function App() {
   return (
-    <div className="snap-y snap-mandatory overflow-y-scroll h-dvh">
+    <div className="snap-y snap-mandatory overflow-y-scroll h-dvh bg-stone-900">
       <div className="min-h-dvh">
         <Navbar />
         <div id="home" className='snap-start'>
