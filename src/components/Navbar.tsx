@@ -182,7 +182,7 @@ export default function Navbar() {
                 Story
               </button>
             </li>
-            <li>
+            {/* <li>
               <button
                 onClick={() => { scrollToSection('join'); setIsMenuOpen(false); }}
                 className={activeSection === 'join' ? 'active' : ''}
@@ -197,7 +197,7 @@ export default function Navbar() {
               >
                 Map
               </button>
-            </li>
+            </li> */}
             <li>
               <button
                 onClick={() => { scrollToSection('crowdfunding'); setIsMenuOpen(false); }}
@@ -229,7 +229,7 @@ export default function Navbar() {
               Story
             </button>
           </li>
-          <li>
+          {/* <li>
             <button
               onClick={() => scrollToSection('join')}
               className={`btn btn-ghost transition-all duration-500 ease-in-out ${activeSection === 'join' ? 'text-[#E37039]' : ''}`}
@@ -244,7 +244,7 @@ export default function Navbar() {
             >
               Map
             </button>
-          </li>
+          </li> */}
           <li>
             <button
               onClick={() => scrollToSection('crowdfunding')}
