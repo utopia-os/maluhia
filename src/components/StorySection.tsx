@@ -213,6 +213,7 @@ export default function StorySection() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const bookRef = useRef<any>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const exitFullscreenTargetRef = useRef<'prev' | 'next' | null>(null)
   const [currentPage, setCurrentPage] = useState(0)
   const [dimensions, setDimensions] = useState({ width: 600, height: 400 })
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200)
@@ -322,7 +323,25 @@ export default function StorySection() {
       setIsFullscreen(isNowFullscreen)
 
       if (!isNowFullscreen) {
-        // Exited fullscreen - scroll back to story section
+        // Check if we need to navigate to a different section
+        const target = exitFullscreenTargetRef.current
+        exitFullscreenTargetRef.current = null
+
+        if (target === 'next') {
+          const nextSection = document.getElementById('story')?.nextElementSibling
+          if (nextSection) {
+            nextSection.scrollIntoView({ behavior: 'smooth' })
+            return
+          }
+        } else if (target === 'prev') {
+          const prevSection = document.getElementById('story')?.previousElementSibling
+          if (prevSection) {
+            prevSection.scrollIntoView({ behavior: 'smooth' })
+            return
+          }
+        }
+
+        // Default: scroll back to story section
         const section = document.getElementById('story')
         if (section) {
           section.scrollIntoView({ behavior: 'instant' })
@@ -374,10 +393,17 @@ export default function StorySection() {
 
   const goToNext = useCallback(() => {
     if (currentPage >= slides.length - 1) {
-      // On last page, scroll to next section
-      const nextSection = document.getElementById('story')?.nextElementSibling
-      if (nextSection) {
-        nextSection.scrollIntoView({ behavior: 'smooth' })
+      // On last page, exit fullscreen first if active, then scroll to next section
+      if (document.fullscreenElement) {
+        exitFullscreenTargetRef.current = 'next'
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ;(screen.orientation as any)?.unlock?.()
+        document.exitFullscreen()
+      } else {
+        const nextSection = document.getElementById('story')?.nextElementSibling
+        if (nextSection) {
+          nextSection.scrollIntoView({ behavior: 'smooth' })
+        }
       }
     } else if (bookRef.current) {
       bookRef.current.pageFlip().flipNext()
@@ -386,10 +412,17 @@ export default function StorySection() {
 
   const goToPrevious = useCallback(() => {
     if (currentPage <= 0) {
-      // On first page, scroll to previous section
-      const prevSection = document.getElementById('story')?.previousElementSibling
-      if (prevSection) {
-        prevSection.scrollIntoView({ behavior: 'smooth' })
+      // On first page, exit fullscreen first if active, then scroll to previous section
+      if (document.fullscreenElement) {
+        exitFullscreenTargetRef.current = 'prev'
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ;(screen.orientation as any)?.unlock?.()
+        document.exitFullscreen()
+      } else {
+        const prevSection = document.getElementById('story')?.previousElementSibling
+        if (prevSection) {
+          prevSection.scrollIntoView({ behavior: 'smooth' })
+        }
       }
     } else if (bookRef.current) {
       bookRef.current.pageFlip().flipPrev()
@@ -420,6 +453,26 @@ export default function StorySection() {
       goToNext
     }
   })
+
+  // Spacebar to toggle play/pause
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Only handle spacebar when story section is visible
+      if (e.code === 'Space' || e.key === ' ') {
+        const storySection = document.getElementById('story')
+        if (storySection) {
+          const rect = storySection.getBoundingClientRect()
+          const isVisible = rect.top < window.innerHeight && rect.bottom > 0
+          if (isVisible) {
+            e.preventDefault()
+            togglePlayPause()
+          }
+        }
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [togglePlayPause])
 
   useEffect(() => {
     const handleResetStory = () => {

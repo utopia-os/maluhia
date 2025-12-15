@@ -123,32 +123,31 @@ export function useGlobalKeyboardNavigation(callbacks: NavigationCallbacks) {
 
         case 'story': {
           if (!callbacks.story) break
-          const { currentSlide, totalSlides, goToPrevious, goToNext } = callbacks.story
+          const { goToPrevious, goToNext } = callbacks.story
 
           if (e.key === 'ArrowLeft') {
             // Linear navigation backwards
             e.preventDefault()
-            if (currentSlide === 0) {
-              scrollToSection('home')
-            } else {
-              goToPrevious()
-            }
+            // goToPrevious handles fullscreen exit when on first slide
+            goToPrevious()
           } else if (e.key === 'ArrowRight') {
             // Linear navigation forwards
             e.preventDefault()
-            if (currentSlide === totalSlides - 1) {
-              // Go to first dialog step
-              goToDialogWithStep(0)
-            } else {
-              goToNext()
-            }
+            // goToNext handles fullscreen exit when on last slide
+            goToNext()
           } else if (e.key === 'ArrowUp') {
             // Section jump up
             e.preventDefault()
+            if (document.fullscreenElement) {
+              document.exitFullscreen()
+            }
             scrollToSection('home')
           } else if (e.key === 'ArrowDown') {
             // Section jump down to last visited dialog step
             e.preventDefault()
+            if (document.fullscreenElement) {
+              document.exitFullscreen()
+            }
             scrollToSection('join')
           }
           break
